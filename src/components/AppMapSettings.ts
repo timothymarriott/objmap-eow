@@ -23,19 +23,11 @@ export default class AppMapSettings extends Vue {
   s: Settings | null = null;
 
   optionsMapType = Object.freeze([
-    { value: 'MainField', text: 'Hyrule (MainField)' },
-    { value: 'MainFieldDungeon', text: 'Divine Beasts (MainFieldDungeon)' },
-    { value: 'CDungeon', text: 'Shrines (CDungeon)' },
-    { value: 'AocField', text: 'Trial of the Sword (AocField)' },
+    { value: 'Hyrule', text: 'Hyrule (MainField)' },
   ]);
 
   optionsMapNameForMapType: { [type: string]: any } = Object.freeze({
-    'MainField': [
-      { value: '', text: 'All' },
-    ],
-    'MainFieldDungeon': [{ value: '', text: 'All' }].concat(['RemainsWind', 'RemainsWater', 'RemainsElectric', 'RemainsFire', 'FinalTrial'].map(makeMainFieldDungeonEntry)),
-    'CDungeon': [{ value: '', text: 'All' }].concat([...Array(136).keys()].map(makeCDungeonEntry)),
-    'AocField': [
+    'Hyrule': [
       { value: '', text: 'All' },
     ],
   });

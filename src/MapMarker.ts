@@ -1,6 +1,5 @@
 import * as L from 'leaflet';
 
-import { rankUpEnemyForHardMode } from '@/level_scaling';
 import { MapBase } from '@/MapBase';
 import * as MapIcons from '@/MapIcon';
 import { MapMgr, ObjectData, ObjectMinData } from '@/services/MapMgr';
@@ -50,7 +49,7 @@ class MapMarkerImpl extends MapMarker {
 }
 
 class MapMarkerCanvasImpl extends MapMarker {
-  constructor(mb: MapBase, title: string, pos: Point, options: CanvasMarkerOptions = {}) {
+  constructor(mb: MapBase, title: string, pos: {x: number, y: number, z:number}, options: CanvasMarkerOptions = {}) {
     super(mb);
     this.title = title;
     let extra: any = {};
@@ -60,7 +59,7 @@ class MapMarkerCanvasImpl extends MapMarker {
     if (options.className) {
       extra['className'] = options.className;
     }
-    this.marker = new CanvasMarker(mb.fromXYZ(pos), Object.assign(options, {
+    this.marker = new CanvasMarker([pos.z, pos.x ], Object.assign(options, {
       bubblingMouseEvents: false,
       contextmenu: true,
     }));
@@ -77,18 +76,20 @@ class MapMarkerGenericLocationMarker extends MapMarkerImpl {
   public readonly lm: map.LocationMarker;
 
   private static ICONS_AND_LABELS: { [type: string]: [L.Icon, string] } = {
-    'Village': [MapIcons.VILLAGE, ''],
-    'Hatago': [MapIcons.HATAGO, ''],
-    'Castle': [MapIcons.CASTLE, ''],
+    'HeartPiece': [MapIcons.HEART_PIECE, 'Heart Piece'],
+    'Stamp': [MapIcons.STAMP, ''],
+    'Warp': [MapIcons.WARP, ''],
+    'MightCrystal': [MapIcons.MIGHT_CRYSTAL, 'Might Crystal'],
+    'Town': [MapIcons.TOWN, ''],
+    'Shop': [MapIcons.SHOP, ''],
+    'SubArea': [MapIcons.SUB_AREA, 'Sub Area'],
+    'Rift': [MapIcons.RIFT, ''],
+    'GreatFairy': [MapIcons.GREAT_FAIRY, 'Great Fairy'],
+    'Dampe': [MapIcons.DAMPE, ''],
+    'Luberi': [MapIcons.LUBERI, ''],
+    'Minigame': [MapIcons.MINIGAME, ''],
+    'Smoothie': [MapIcons.SMOOTHIE, 'Smoothie Stand'],
     'CheckPoint': [MapIcons.CHECKPOINT, ''],
-    'Tower': [MapIcons.TOWER, ''],
-    'Labo': [MapIcons.LABO, ''],
-    'Dungeon': [MapIcons.DUNGEON, ''],
-    'ShopBougu': [MapIcons.SHOP_BOUGU, 'Armor Shop'],
-    'ShopColor': [MapIcons.SHOP_COLOR, 'Dye Shop'],
-    'ShopJewel': [MapIcons.SHOP_JEWEL, 'Jewelry Shop'],
-    'ShopYadoya': [MapIcons.SHOP_YADOYA, 'Inn'],
-    'ShopYorozu': [MapIcons.SHOP_YOROZU, 'General Store'],
   };
 
   constructor(mb: MapBase, l: any, showLabel: boolean, zIndexOffset?: number) {
@@ -111,30 +112,17 @@ class MapMarkerGenericLocationMarker extends MapMarkerImpl {
   }
 }
 
-export class MapMarkerPlateauRespawnPos extends MapMarkerCanvasImpl {
-  constructor(mb: MapBase, pos: Point) {
-    super(mb, 'Plateau Respawn Location', pos, {
-      fillColor: '#ff0000',
-      fill: true,
-      fillOpacity: 1,
-      stroke: false,
-      radius: 5,
-    });
-  }
-}
-
 export class MapMarkerLocation extends MapMarkerCanvasImpl {
   public readonly lp: map.LocationPointer;
 
   constructor(mb: MapBase, l: any) {
     const lp = new map.LocationPointer(l);
     const markerTypeStr = map.markerTypetoStr(lp.getType());
-    const visibleMarkerTypeStr = l.PointerType ? 'Place' : markerTypeStr;
     const msg = MsgMgr.getInstance().getMsgWithFile('StaticMsg/LocationMarker', lp.getMessageId());
 
-    super(mb, msg, lp.getXYZ(), { stroke: false, fill: false });
+    super(mb, msg, {x: lp.getXYZ()[0], y: lp.getXYZ()[1], z: lp.getXYZ()[2]}, { stroke: false, fill: false });
     this.marker.unbindTooltip();
-    this.marker.bindTooltip(msg + `<span class="location-marker-type">${visibleMarkerTypeStr}</span>`, {
+    this.marker.bindTooltip(msg, {
       permanent: true,
       direction: 'center',
       className: `map-location show-level-${lp.getShowLevel()} type-${markerTypeStr}`,
@@ -147,114 +135,64 @@ export class MapMarkerLocation extends MapMarkerCanvasImpl {
   }
 }
 
-export class MapMarkerDungeon extends MapMarkerGenericLocationMarker {
-  public readonly dungeonNum: number;
-
-  constructor(mb: MapBase, l: any) {
-    super(mb, l, false, 1000);
-    // Yes, extracting the dungeon number from the save flag is what Nintendo does.
-    const dungeonNum = parseInt(this.lm.getSaveFlag().replace('Location_Dungeon', ''), 10);
-    this.marker.setIcon(dungeonNum >= 120 ? MapIcons.DUNGEON_DLC : MapIcons.DUNGEON);
-    this.setTitle(MsgMgr.getInstance().getMsgWithFile('StaticMsg/Dungeon', this.lm.getMessageId()));
-    this.marker.options.title = '';
-    this.dungeonNum = dungeonNum;
-    const sub = MsgMgr.getInstance().getMsgWithFile('StaticMsg/Dungeon', this.lm.getMessageId() + '_sub');
-    this.marker.bindTooltip(`${this.title}<br>${sub}`, { pane: 'front2' });
-  }
-}
-
-export class MapMarkerDungeonDLC extends MapMarkerDungeon {
-  constructor(mb: MapBase, l: any) {
-    super(mb, l);
-  }
-}
-
-export class MapMarkerPlace extends MapMarkerGenericLocationMarker {
-  private isVillage: boolean;
-
-  constructor(mb: MapBase, l: any) {
-    const isVillage = l['Icon'] == 'Village';
-    super(mb, l, isVillage);
-    this.isVillage = isVillage;
-  }
-
-  shouldBeShown() {
-    if (this.isVillage)
-      return this.mb.zoom < 7;
-    return true;
-  }
-}
-
-export class MapMarkerTower extends MapMarkerGenericLocationMarker {
-  constructor(mb: MapBase, l: any) {
-    super(mb, l, false, 1001);
-  }
-}
-
-export class MapMarkerLabo extends MapMarkerGenericLocationMarker {
-  constructor(mb: MapBase, l: any) {
-    super(mb, l, false);
-  }
-}
-
 export class MapMarkerShop extends MapMarkerGenericLocationMarker {
   constructor(mb: MapBase, l: any) {
     super(mb, l, false);
   }
+}
 
-  shouldBeShown() {
-    return this.mb.zoom >= 7;
+export class MapMarkerHeartPiece extends MapMarkerGenericLocationMarker {
+  constructor(mb: MapBase, l: any) {
+    super(mb, l, false);
   }
 }
 
-const KOROK_ICON = (() => {
-  const img = new Image();
-  img.src = '/icons/mapicon_korok.png';
-  return img;
-})();
-
-export class MapMarkerKorok extends MapMarkerCanvasImpl {
-  public readonly info: any;
-
-  constructor(mb: MapBase, info: any, extra: any) {
-    let id = info.id || 'Korok';
-    super(mb, `${id}`, [info.Translate.X, info.Translate.Y, info.Translate.Z], {
-      icon: KOROK_ICON,
-      iconWidth: 20,
-      iconHeight: 20,
-      showLabel: extra.showLabel,
-      className: classToColor(id),
-    });
-    this.info = info;
-    // @ts-ignore
-    this.obj = info;
+export class MapMarkerStamp extends MapMarkerGenericLocationMarker {
+  constructor(mb: MapBase, l: any) {
+    super(mb, l, false);
   }
 }
 
-// Convert first letter of Korok ID to CSS classname
-function classToColor(id: string): string {
-  let classes: any = {
-    'A': 'akkala',
-    'C': 'central',
-    'E': 'eldin',
-    'D': 'duelingpeaks',
-    'F': 'faron',
-    'G': 'gerudo',
-    'H': 'hebra',
-    'K': 'woodland',
-    'L': 'lake',
-    'N': 'hateno',
-    'P': 'plateau',
-    'R': 'ridgeland',
-    'T': 'tabantha',
-    'W': 'wasteland',
-    'X': 'castle',
-    'Z': 'lanayru',
-  };
-  if (id[0] in classes) {
-    return classes[id[0]] + ' korok';
+export class MapMarkerWarp extends MapMarkerGenericLocationMarker {
+  constructor(mb: MapBase, l: any) {
+    super(mb, l, false);
   }
-  return 'default';
+}
+
+export class MapMarkerMightCrystal extends MapMarkerGenericLocationMarker {
+  constructor(mb: MapBase, l: any) {
+    super(mb, l, false);
+  }
+}
+
+export class MapMarkerTown extends MapMarkerGenericLocationMarker {
+  constructor(mb: MapBase, l: any) {
+    super(mb, l, false);
+  }
+}
+
+export class MapMarkerSubArea extends MapMarkerGenericLocationMarker {
+  constructor(mb: MapBase, l: any) {
+    super(mb, l, false);
+  }
+}
+
+export class MapMarkerRift extends MapMarkerGenericLocationMarker {
+  constructor(mb: MapBase, l: any) {
+    super(mb, l, false);
+  }
+}
+
+export class MapMarkerMinigame extends MapMarkerGenericLocationMarker {
+  constructor(mb: MapBase, l: any) {
+    super(mb, l, false);
+  }
+}
+
+export class MapMarkerSmoothie extends MapMarkerGenericLocationMarker {
+  constructor(mb: MapBase, l: any) {
+    super(mb, l, false);
+  }
 }
 
 function getName(name: string) {
@@ -265,21 +203,7 @@ function getName(name: string) {
 
 function setObjMarkerTooltip(title: string, layer: L.Layer, obj: ObjectMinData) {
   const tooltipInfo = [title];
-  if (obj.name === 'LocationTag' && obj.messageid) {
-    const locationName = MsgMgr.getInstance().getMsgWithFile('StaticMsg/LocationMarker', obj.messageid)
-      || MsgMgr.getInstance().getMsgWithFile('StaticMsg/Dungeon', obj.messageid);
-    tooltipInfo.push(`${locationName}`);
-  }
-  if (obj.drop) {
-    if (obj.drop[0] == 1)
-      tooltipInfo.push(getName(obj.drop[1]));
-    else if (obj.drop[0] == 2)
-      tooltipInfo.push('Drop table: ' + obj.drop[1]);
-  }
-  if (obj.equip) {
-    for (const e of obj.equip)
-      tooltipInfo.push(getName(e));
-  }
+
   layer.setTooltipContent(tooltipInfo.join('<br>'));
 }
 
@@ -303,7 +227,7 @@ export const enum SearchResultUpdateMode {
 
 export class MapMarkerObj extends MapMarkerCanvasImpl {
   constructor(mb: MapBase, public readonly obj: ObjectMinData, fillColor: string, strokeColor: string) {
-    super(mb, '', obj.pos, {
+    super(mb, '', obj.translate, {
       radius: 7,
       weight: 2,
       fillOpacity: 0.7,
@@ -312,50 +236,7 @@ export class MapMarkerObj extends MapMarkerCanvasImpl {
 
       // @ts-ignore
       contextmenuItems: [
-        {
-          text: 'Show no-revival area',
-          callback: ({ latlng }: ui.LeafletContextMenuCbArg) => {
-            const [x, y, z] = mb.toXYZ(latlng);
-            const col = math.clamp(((x + 5000) / 1000) | 0, 0, 9);
-            const row = math.clamp(((z + 4000) / 1000) | 0, 0, 7);
 
-            let minx = (col - 1) * 1000 - 4500;
-            let maxx = (col + 1) * 1000 - 4500;
-            minx = math.clamp(minx, -5000, 5000);
-            maxx = math.clamp(maxx, -5000, 5000);
-
-            let minz = (row - 1) * 1000 - 3500;
-            let maxz = (row + 1) * 1000 - 3500;
-            minz = math.clamp(minz, -4000, 4000);
-            maxz = math.clamp(maxz, -4000, 4000);
-
-            const pt1 = mb.fromXYZ([minx, 0, minz]);
-            const pt2 = mb.fromXYZ([maxx, 0, maxz]);
-            const rect = L.rectangle(L.latLngBounds(pt1, pt2), {
-              color: "#ff7800",
-              weight: 2,
-              // @ts-ignore
-              contextmenu: true,
-              contextmenuItems: [{
-                text: 'Hide no-revival area',
-                callback: () => { rect.remove(); },
-              }],
-            });
-            rect.addTo(mb.m);
-          },
-          index: 0,
-        },
-        {
-          text: 'Show generation group',
-          callback: ({ latlng }: ui.LeafletContextMenuCbArg) => {
-            mb.m.fire('AppMap:show-gen-group', {
-              mapType: this.obj.map_type,
-              mapName: this.obj.map_name,
-              hashId: this.obj.hash_id,
-            });
-          },
-          index: 0,
-        },
       ],
     });
     this.marker.bringToFront();
@@ -363,9 +244,7 @@ export class MapMarkerObj extends MapMarkerCanvasImpl {
   }
 
   updateTitle() {
-    const actor = (Settings.getInstance().hardMode && !this.obj.disable_rankup_for_hard_mode)
-      ? rankUpEnemyForHardMode(this.obj.name)
-      : this.obj.name;
+    const actor = this.obj.name;
     this.title = getName(actor);
     setObjMarkerTooltip(this.title, this.marker, this.obj);
   }
@@ -398,6 +277,7 @@ export class MapMarkerObj extends MapMarkerCanvasImpl {
 
 export class MapMarkerSearchResult extends MapMarkerObj {
   constructor(mb: MapBase, obj: ObjectMinData) {
+    console.log(obj)
     super(mb, obj, '#e02500', '#ff2a00');
   }
 }

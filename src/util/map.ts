@@ -1,24 +1,22 @@
-export const TILE_SIZE = 256;
-export const MAP_SIZE = [24000, 20000];
+
 
 export const GAME_FILES = process.env.VUE_APP_GAME_FILES;
+export const EOW_FILES = process.env.VUE_APP_EOW_FILES;
 
 export type Point = [number, number, number];
 
 export function isValidXYZ(x: number, y: number, z: number) {
-  return Math.abs(x) <= 6000 && Math.abs(z) <= 5000;
+  const minX = -50;
+  const maxX = 714.0;
+  const minZ = -36;
+  const maxZ = 513.4;
+
+  return x >= minX && x <= maxX &&
+         z >= minZ && z <= maxZ;
 }
 
 export function isValidPoint(p: Point) {
   return isValidXYZ(p[0], p[1], p[2]);
-}
-
-export function pointToMapUnit(p: Point) {
-  const col = ((p[0] + 5000) / 1000) >>> 0;
-  const row = ((p[2] + 4000) / 1000) >>> 0;
-  return String.fromCharCode('A'.charCodeAt(0) + col)
-    + '-'
-    + String.fromCharCode('1'.charCodeAt(0) + row);
 }
 
 export const enum MarkerType {
@@ -47,7 +45,7 @@ export const enum ShowLevel {
 
 export const DEFAULT_ZOOM = 3;
 export const MIN_ZOOM = 2;
-export const MAX_ZOOM = 10;
+export const MAX_ZOOM = 6;
 
 export function shouldShowLocationMarker(showLevel: ShowLevel, zoom: number) {
   switch (showLevel) {

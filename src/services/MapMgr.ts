@@ -1,5 +1,5 @@
 
-import { GAME_FILES } from '@/util/map';
+import { EOW_FILES, GAME_FILES } from '@/util/map';
 
 const RADAR_URL = process.env.VUE_APP_RADAR_URL;
 
@@ -25,35 +25,25 @@ export const enum ObjectDropType {
 }
 
 export interface ObjectMinData {
-  objid: number;
-  hash_id: number;
-  map_type: string;
-  map_name?: string;
-  map_static: boolean;
-  name: string;
-  drop?: [ObjectDropType, string];
-  equip?: string[];
-  pos: [number, number, number];
+  actor: string,
+  conditions: any[],
+  data: {group07: number},
+  group07_id: number,
+  group10_id: any,
+  hash: string,
+  hash_id: number,
+  map_name: string,
+  name: string,
+  objid: number,
+  params: any[],
+  region12: any[],
+  scale: {min_x: number, min_y: number, min_z: number, max_x: number, max_y: number, max_z: number},
+  translate: {x: number, y: number, z:number}
 
-  // False if not present.
-  hard_mode?: boolean;
-  one_hit_mode?: boolean;
-  disable_rankup_for_hard_mode?: boolean;
-
-  // Only for LocationTags.
-  messageid?: string;
-
-  // Only for weapons and enemies.
-  scale?: number;
-  sharp_weapon_judge_type?: number;
-
-  korok_type?: string;
-  korok_id?: string;
 }
 
 export interface ObjectData extends ObjectMinData {
   map_name: string;
-  data: ResPlacementObj;
 }
 
 export class PlacementLink {
@@ -81,10 +71,8 @@ export class MapMgr {
 
   async init() {
     await Promise.all([
-      fetch(`${GAME_FILES}/map_summary/MainField/static.json`).then(r => r.json())
+      fetch(`${EOW_FILES}/map_summary/MainField/static.json`).then(r => r.json())
         .then((d) => {
-          d.markers["DungeonDLC"] = d.markers["Dungeon"].filter((l: any) => parseInt(l.SaveFlag.replace('Location_Dungeon', ''), 10) >= 120);
-          d.markers["Dungeon"] = d.markers["Dungeon"].filter((l: any) => parseInt(l.SaveFlag.replace('Location_Dungeon', ''), 10) < 120);
           this.infoMainField = Object.freeze(d);
         }),
     ]);
@@ -101,8 +89,8 @@ export class MapMgr {
   getObjByObjId(objid: number): Promise<ObjectData | null> {
     return fetch(`${RADAR_URL}/obj/${objid}`).then(parse);
   }
-  getObj(mapType: string, mapName: string, hashId: number): Promise<ObjectData | null> {
-    return fetch(`${RADAR_URL}/obj/${mapType}/${mapName}/${hashId}`).then(parse);
+  getObj(mapName: string, hashId: number): Promise<ObjectData | null> {
+    return fetch(`${RADAR_URL}/obj/${mapName}/${hashId}`).then(parse);
   }
 
   getObjGenGroup(mapType: string, mapName: string, hashId: number): Promise<ObjectData[]> {

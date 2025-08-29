@@ -1,10 +1,5 @@
 <template>
   <section>
-    <b-checkbox switch v-model="s.hardMode">Master Mode</b-checkbox>
-    <p>If enabled, show Master Mode only objects and automatically rank up enemies. Note: this does not affect search.</p>
-    <b-checkbox switch v-model="s.lastBossMode">LastBoss Mode</b-checkbox>
-    <p>If enabled, objects that do not spawn after entering the castle sanctum will be hidden.</p>
-    <b-checkbox switch v-model="s.ohoMode">Show One-Hit Obliterator mode actors</b-checkbox>
     <hr>
 
     <h4 class="subsection-heading">Map</h4>
@@ -23,7 +18,6 @@
     <b-checkbox switch v-model="s.useActorNames">Use internal actor names</b-checkbox>
     <b-checkbox switch v-model="s.useHexForHashIds">Show hash IDs in hex</b-checkbox>
     <b-checkbox switch  @change="toggleY">Show object heights in tooltips</b-checkbox>
-    <b-checkbox switch v-model="s.showUnloadRadius">Show object unload radius</b-checkbox>
     <hr>
     <section>
       <h4 class="subsection-heading">Custom Search Presets</h4>

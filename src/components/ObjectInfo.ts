@@ -2,7 +2,6 @@ import Vue from 'vue';
 import { Prop } from 'vue-property-decorator';
 import Component, { mixins } from 'vue-class-component';
 
-import { rankUpEnemyForHardMode } from '@/level_scaling';
 import MixinUtil from '@/components/MixinUtil';
 import { MsgMgr } from '@/services/MsgMgr';
 import { ObjectData, ObjectMinData, PlacementLink } from '@/services/MapMgr';
@@ -57,31 +56,7 @@ export default class ObjectInfo extends mixins(MixinUtil) {
 
 
   private name(rankUp: boolean) {
-    if (this.dropAsName)
-      return this.drop();
-
-    const objName = this.data.name;
-    if (objName === 'LocationTag' && this.data.messageid) {
-      const locationName = MsgMgr.getInstance().getMsgWithFile('StaticMsg/LocationMarker', this.data.messageid)
-        || MsgMgr.getInstance().getMsgWithFile('StaticMsg/Dungeon', this.data.messageid);
-      return `Location: ${locationName}`;
-    }
-
     return this.getName(rankUp ? this.getRankedUpActorNameForObj(this.data) : this.data.name);
   }
 
-  private isHardMode() {
-    return Settings.getInstance().hardMode;
-  }
-
-  private drop() {
-    let s = '';
-    if (!this.data.drop)
-      return s;
-
-    s += this.data.drop[0] == 2 ? 'Drop table: ' : '';
-    s += this.getName(this.data.drop[1]);
-
-    return s;
-  }
 }

@@ -108,76 +108,27 @@ const staticData = new StaticData();
 export default class AppMapDetailsObj extends AppMapDetailsBase<MapMarkerObj | MapMarkerSearchResult> {
   private minObj: ObjectMinData | null = null;
   private obj: ObjectData | null = null;
-  private genGroup: ObjectData[] = [];
-  private genGroupSet: Map<number, ObjectData> = new Map();
-
-  private dropTables: { [key: string]: any } = {};
-  private shopData: { [key: string]: any } = {};
-  private links: PlacementLink[] = [];
-  private linksToSelf: PlacementLink[] = [];
-  private linkTagInputs: PlacementLink[] = [];
   private isInvertedLogicTag = false;
 
-  private areaMarkers: L.Path[] = [];
   private staticData = staticData;
+  areaMarkers: any;
 
-  private korokMarkers: any[] = [];
-  private rails: { [key: string]: any }[] = [];
-  private railMarkers: any[] = [];
-  private railLimits: { [key: string]: any } = {};
 
   async init() {
     this.minObj = this.marker.data.obj;
     this.obj = null;
-    this.genGroup = [];
-    this.genGroupSet.clear();
-    this.dropTables = {};
-    this.links = [];
-    this.linksToSelf = [];
-    this.linkTagInputs = [];
-    this.areaMarkers.forEach(m => m.remove());
-    this.areaMarkers = [];
-    this.rails = [];
-    this.railMarkers.forEach(m => m.remove());
-    this.railMarkers = [];
-    this.shopData = {};
+
     if (this.minObj.objid) {
       this.obj = (await MapMgr.getInstance().getObjByObjId(this.minObj.objid))!;
     } else {
-      this.obj = (await MapMgr.getInstance().getObj(this.minObj.map_type,
+      this.obj = (await MapMgr.getInstance().getObj(
         // @ts-ignore ( map_name: string? )
         this.minObj.map_name,
         this.minObj.hash_id))!;
       // Set the objid from the fetched data otherwise Vue does not update
       this.minObj.objid = this.obj.objid;
     }
-    if (!this.minObj.korok_type && this.obj.korok_type) {
-      this.minObj.korok_type = this.obj.korok_type;
-    }
-    if (!this.minObj.korok_id && this.obj.korok_id) {
-      this.minObj.korok_id = this.obj.korok_id;
-    }
 
-    this.dropTables = await MapMgr.getInstance().getObjDropTables(this.getRankedUpActorNameForObj(this.minObj), this.getDropTableName());
-    this.genGroup = await MapMgr.getInstance().getObjGenGroup(this.obj.map_type, this.obj.map_name, this.obj.hash_id);
-    for (const obj of this.genGroup) {
-      this.genGroupSet.set(obj.hash_id, obj);
-    }
-
-    const location = this.getLocationSub();
-    if (location != '') {
-      if (location.includes('Stable') || location == "Oasis") {
-        this.shopData = await MapMgr.getInstance().getObjShopData();
-      }
-    }
-
-    if (this.obj.data.LinksToRail || DRAGON_HASH_IDS.includes(this.obj.hash_id)) {
-      this.rails = await MapMgr.getInstance().getObjRails(this.obj.hash_id);
-    }
-
-    this.initLinks();
-    this.initLinksToSelf();
-    this.initLinkTagLinks();
     this.isInvertedLogicTag = this.obj.name === 'LinkTagNAnd' || this.obj.name === 'LinkTagNOr';
 
     this.initAreaMarkers();
@@ -186,79 +137,19 @@ export default class AppMapDetailsObj extends AppMapDetailsBase<MapMarkerObj | M
       this.updateColorlineStyle({ palette: args.palette });
     });
 
-    this.korokMarkers.forEach(m => m.remove());
-    this.korokMarkers = [];
-    this.initKorokMarkers();
-    this.initRails();
+
   }
 
-  initRails() {
-    if (!this.obj)
-      return;
-
-    if (this.obj.korok_type && this.obj.korok_type == "Moving Lights")
-      return;
-
-    let palette = (this.staticData.colorScale) ? this.staticData.colorScale.palette() : {
-      0: 'pink', 1: 'white'
-    };
-    let opts = {
-      min: 0, max: 800,
-      palette: palette,
-      weight: 4,
-      outlineWidth: 0,
-      palettes: {
-        sunset: {
-          0.0000: '#f3e79b', 0.1666: '#fac484', 0.3333: '#f8a07e', 0.5000: '#eb7f86',
-          0.6666: '#ce6693', 0.8333: '#a059a0', 1.0000: '#5c53a5'
-        }
-      },
-      name: "sunset",
-      pane: 'tilePane',
-    };
-
-    let map = this.marker.data.mb;
-    this.railLimits = {};
-    this.railMarkers = this.rails.map((rail: any) => {
-      let pts = curves.railPath(rail); //[x,y,z] y is UpDown
-      let yvals = pts.map((pt: any) => pt[1]);
-      if (this.railLimits.min === undefined) { this.railLimits.min = yvals[0]; }
-      if (this.railLimits.max === undefined) { this.railLimits.max = yvals[0]; }
-      this.railLimits.min = Math.min(this.railLimits.min, ...yvals);
-      this.railLimits.max = Math.max(this.railLimits.max, ...yvals);
-      // Draw polyline [x,z,y] but z is North-South and y is Up-Down
-      pts = pts.map((pt: any) => [pt[2], pt[0], pt[1]]);
-      // @ts-ignore
-      return L.hotline(pts, opts).addTo(map.m);
-    });
-    if (this.railMarkers.length) {
-      if (!this.staticData.colorScale) {
-        this.staticData.colorScale = new ColorScale(opts, { position: 'bottomleft' }).addTo(map.m);
-        this.updateColorlineStyle({ palette: this.staticData.colorScale.palette() });
-      }
-      this.updateColorScale();
-    }
-  }
 
   updateColorlineStyle(style: any) {
-    this.staticData.persistentRailMarkers.forEach((line: any) => {
-      line.setStyle(style).redraw();
-    });
-    this.railMarkers.forEach((line: any) => {
-      line.setStyle(style).redraw();
-    });
+
   }
 
   getColorlineLimits(): any | null {
-    let prl = this.staticData.persistentRailLimits;
+
     // Min/Max, filter out undefined
     //   if all are undefined, return infinity/-infinity
-    let amin = Math.min(...[prl.min, this.railLimits.min].filter(isFinite));
-    let amax = Math.max(...[prl.max, this.railLimits.max].filter(isFinite));
-    if (!isFinite(amin) || !isFinite(amax)) {
-      return null;
-    }
-    return { min: amin, max: amax };
+    return null;
   }
 
   setColorlineLimits(limits: any) {
@@ -276,11 +167,7 @@ export default class AppMapDetailsObj extends AppMapDetailsBase<MapMarkerObj | M
   }
 
   beforeDestroy() {
-    this.areaMarkers.forEach(m => m.remove());
-    this.korokMarkers.forEach(m => m.remove());
-    this.railMarkers.forEach(m => m.remove());
     // Rails
-    this.railLimits = {};
     this.updateColorScale();
     if (!this.staticData.persistentRailMarkers.length) {
       this.forgetColorScale();
@@ -289,11 +176,7 @@ export default class AppMapDetailsObj extends AppMapDetailsBase<MapMarkerObj | M
 
   getLocationSub() {
     const obj = this.marker.data.obj;
-    if (obj.name === 'LocationTag' && obj.messageid) {
-      const locationName = MsgMgr.getInstance().getMsgWithFile('StaticMsg/LocationMarker', obj.messageid)
-        || MsgMgr.getInstance().getMsgWithFile('StaticMsg/Dungeon', obj.messageid);
-      return locationName;
-    }
+
     return '';
   }
 
@@ -323,219 +206,27 @@ export default class AppMapDetailsObj extends AppMapDetailsBase<MapMarkerObj | M
     return d.toFixed(digits);
   }
 
-  linkTagSaveFlagAction(): string {
-    if (!this.obj)
-      return '???';
-    if (this.obj.data['!Parameters']!.IncrementSave || this.obj.name == 'LinkTagCount')
-      return 'Increments';
-    switch (this.obj.data['!Parameters']!.SaveFlagOnOffType) {
-      case 0:
-        if (this.obj.name == 'LinkTagAnd' || this.obj.name == 'LinkTagNAnd' || this.obj.name == 'LinkTagXOr')
-          return 'Sets';
-        if (this.obj.name == 'LinkTagOr' || this.obj.name == 'LinkTagNOr')
-          return 'Clears';
-        return '???';
-      case 1:
-        return 'Sets';
-      case 2:
-        return 'Clears';
-      default:
-        return '???';
-    }
-  }
-
-  linkTagSaveFlag(): string {
-    if (!this.obj)
-      return '';
-    switch (this.obj.data['!Parameters']!.MakeSaveFlag) {
-      case 0:
-        return this.obj.data['!Parameters']!.SaveFlag || '';
-      case 1:
-        return 'Clear_{CURRENT_MAP_NAME}';
-      case 2:
-        return 'Open_{DUNGEON_NAME}';
-      case 3:
-        return `${this.obj.map_type}_${this.obj.name}_${this.obj.hash_id}`;
-      default:
-        return 'UNEXPECTED_MAKE_SAVE_FLAG';
-    }
-  }
-
-  private initLinks() {
-    const links = this.obj!.data.LinksToObj;
-    if (!links)
-      return;
-
-    for (const link of links) {
-      const destObj = (this.genGroupSet.get(link.DestUnitHashId))!;
-      this.links.push(new PlacementLink(destObj, link, link.DefinitionName));
-    }
-  }
-
-  private initLinksToSelf() {
-    for (const obj of this.genGroup) {
-      const links = obj.data.LinksToObj;
-      if (!links)
-        continue;
-
-      for (const link of links) {
-        if (link.DestUnitHashId === this.obj!.hash_id)
-          this.linksToSelf.push(new PlacementLink(obj, link, link.DefinitionName));
-      }
-    }
-  }
-
-  private initLinkTagLinks() {
-    if (!this.obj!.name.startsWith('LinkTag'))
-      return;
-
-    for (const link of this.linksToSelf) {
-      const type: number = (<any>MapLinkDefType)[link.ltype];
-      if (type <= 0xe)
-        this.linkTagInputs.push(link);
-    }
-  }
 
   private initAreaMarkers() {
     if (!this.obj)
       return;
 
+    /*
     if (Settings.getInstance().showUnloadRadius) {
       this.addObjectTraverseDistance(this.obj)
     } else {
       this.addDungeonElevatorLoadAreaMarker(this.obj);
     }
+      */
     if (isAreaObject(this.obj))
       this.addAreaMarker(this.obj);
-
-    this.linksToSelf.filter(l => isAreaObject(l.otherObj)).forEach((link) => {
-      this.addAreaMarker(link.otherObj);
-    });
-
-    if (this.obj.name == 'LocationTag') {
-      this.genGroup.filter(isAreaObject).forEach((o) => {
-        this.addAreaMarker(o);
-      });
-    }
   }
 
-  private addDungeonElevatorLoadAreaMarker(obj: ObjectData) {
-    let radius = 0.0;
-    if (obj.name == 'DgnObj_EntranceElevator_A_01') {
-      radius = 64.0;
-      if (obj.hash_id == KUH_TAKKAR_ELEVATOR_HASH_ID) {
-        /* Kuh Takkar, elevator in the same gen group as the ice actor
-           which has an unload radius of 1500m -- so the elevator has
-           a 1500m radius.
-        */
-        radius = 1500.0;
-      }
-    } else if (obj.name == 'DgnObj_EntranceElevatorSP') {
-      radius = 528.0;
-      if (obj.data['!Parameters']!.EventFlowName == 'Demo603_0') {
-        radius = 1500.0;
-      }
-    }
-
-    if (radius == 0.0)
-      return;
-
-    const mb = this.marker.data.mb;
-    const [x, y, z] = obj.data.Translate;
-    const areaMarker = L.circle(mb.fromXYZ([x, 0, z]), { radius }).addTo(mb.m);
-    areaMarker.bringToBack();
-    this.areaMarkers.push(areaMarker);
-  }
-
-  private getActorTraverseDist(obj: ObjectData) {
-    const ignored_objs = new Set([
-      "DgnObj_DungeonEntranceSP_Far",
-      "DgnObj_DungeonEntrance_A_01_Far",
-      "DgnObj_EntranceShutter_A_01",
-      "DgnObj_DungeonEntrance_A_01"
-    ])
-    if (ignored_objs.has(obj.data.UnitConfigName)) {
-      return 0.0
-    }
-    if (!obj)
-      return 0.0
-    const passive_radius = [
-      80.0, 100.0, 130.0, 154.0, 169.0, 184.0, 215.0,
-      246.0, 277.0, 308.0, 354.0, 400.0, 446.0, 492.0,
-      539.0, 600.0, 650.0, 700.0, 750.0, 800.0, 850.0,
-      900.0, 950.0, 1000.0, 1050.0, 1100.0, 1300.0, 1400.0,
-      1500.0, 1600.0,
-    ]
-    const active_radius = [
-      70.0, 80.0, 90.0, 100.0, 110.0, 120.0, 140.0,
-      160.0, 180.0, 200.0, 230.0, 260.0, 290.0, 320.0,
-      350.0
-    ]
-    let actorProfile = obj.data['!Parameters']!.ProfileUser
-
-    let traverseDist = 0.0
-    if ('ActorMeta' in obj.data['!Parameters']!)
-      traverseDist = obj.data['!Parameters']!.ActorMeta!.traverseDist || 0.0
-    if (traverseDist > 0) {
-      if (actorProfile.includes('Enemy') || actorProfile.includes('NPC')) {
-        return traverseDist * 0.7
-      }
-      return traverseDist
-    }
-    let boundingForTraverse = 0.0
-    let defaultBoundingForTraverse = 1.0
-    let configuredBoundingForTraverse = 1.0
-    if ('ActorMeta' in obj.data['!Parameters']!)
-      configuredBoundingForTraverse = obj.data['!Parameters']!.ActorMeta!.boundingForTraverse || 0.0
-    if (configuredBoundingForTraverse <= 0.0) {
-      boundingForTraverse = defaultBoundingForTraverse
-    } else {
-      boundingForTraverse = configuredBoundingForTraverse
-    }
-    if (actorProfile.includes("Passive")) {
-      if (boundingForTraverse < 0.3)
-        return 30.0
-      if (boundingForTraverse < 0.5)
-        return 50.0
-      let index = Math.floor(boundingForTraverse)
-      if (index >= 29)
-        index = 29
-      return passive_radius[index]
-    }
-
-    if (boundingForTraverse < 0.3)
-      return 40.0
-    if (boundingForTraverse < 0.5)
-      return 45.0
-    if (boundingForTraverse < 0.8)
-      return 50.0
-    let index = Math.floor(boundingForTraverse)
-    if (index >= 14)
-      index = 14
-    return active_radius[index] * 0.8;
-  }
-
-  private addObjectTraverseDistance(obj: ObjectData) {
-    if (!('ActorMeta' in obj.data['!Parameters']!))
-      return
-    let gg_radius = this.genGroup.map(gg => this.getActorTraverseDist(gg))
-    let radius = Math.max(...gg_radius)
-    if (radius == 0)
-      return
-    const mb = this.marker.data.mb
-    const [x, y, z] = obj.data.Translate
-    const areaMarker = L.circle(mb.fromXYZ([x, 0, z]), { radius, color: 'lightblue', fillColor: 'lightblue' }).addTo(mb.m);
-    areaMarker.bringToBack()
-    this.areaMarkers.push(areaMarker)
-  }
 
   private addAreaMarker(obj: ObjectData) {
     const mb = this.marker.data.mb;
-    const [x, y, z] = obj.data.Translate;
-    const params = obj.data['!Parameters'];
-    const shape: string = (params && params.Shape) ? params.Shape : 'Box';
-    const scale = numOrArrayToArray(obj.data.Scale);
-    const rotate = numOrArrayToArray(obj.data.Rotate);
+    const {x, y, z} = obj.translate;
+    const scale = obj.scale;
 
     if (!scale)
       return;
@@ -544,37 +235,14 @@ export default class AppMapDetailsObj extends AppMapDetailsBase<MapMarkerObj | M
     // Super rough approximation. This could be improved by actually projecting the 3D shape...
     // A lot of shapes do not use any rotate feature though,
     // and for those this naïve approach should suffice.
-    if (shape == 'Sphere') {
-      areaMarker = L.circle(mb.fromXYZ([x, 0, z]), { radius: scale[0] }).addTo(mb.m);
-    } else if (shape == 'Cylinder' || shape == 'Capsule') {
-      if (rotate && Math.abs(rotate[0] - 1.57080) <= 0.01) {
-        const southWest = L.latLng(z + scale[2], x - scale[1] - scale[2]);
-        const northEast = L.latLng(z - scale[2], x + scale[1] + scale[2]);
-        areaMarker = L.rectangle(L.latLngBounds(southWest, northEast)).addTo(mb.m);
-      } else {
-        areaMarker = L.circle(mb.fromXYZ([x, 0, z]), { radius: scale[0] }).addTo(mb.m);
-      }
-    } else if (shape == 'Box') {
-      const southWest = L.latLng(z + scale[2], x - scale[0]);
-      const northEast = L.latLng(z - scale[2], x + scale[0]);
-      areaMarker = L.rectangle(L.latLngBounds(southWest, northEast), {
-        // @ts-ignore
-        transform: true,
-      }).addTo(mb.m);
-      if (rotate) {
-        // XXX: horrible hack to rotate a rectangle.
-        // @ts-ignore
-        areaMarker.transform._map = areaMarker._map;
-        const center = (<L.Rectangle>(areaMarker)).getCenter();
-        // @ts-ignore
-        areaMarker.transform._transformPoints(areaMarker, -rotate[0], null, center, center);
-      }
-    } else if (shape == 'Hull') {
-      // Deliberately unhandled.
-      return;
-    } else {
-      return;
-    }
+
+    const southWest = L.latLng(z + obj.scale.max_z, x - obj.scale.min_x);
+    const northEast = L.latLng(z - obj.scale.min_z, x + obj.scale.max_x);
+    areaMarker = L.rectangle(L.latLngBounds(southWest, northEast), {
+      // @ts-ignore
+      transform: true,
+    }).addTo(mb.m);
+
 
     areaMarker.bringToBack();
     this.areaMarkers.push(areaMarker);
@@ -583,20 +251,6 @@ export default class AppMapDetailsObj extends AppMapDetailsBase<MapMarkerObj | M
   isAreaReprPossiblyWrong(): boolean {
     if (!this.obj || !isAreaObject(this.obj))
       return false;
-
-    const params = this.obj.data['!Parameters'];
-
-    const shape: string = (params && params.Shape) ? params.Shape : 'Box';
-
-    if (!this.obj.data.Rotate)
-      return false;
-
-    if (shape == 'Sphere' || shape == 'Hull')
-      return false;
-
-    if (shape == 'Box') {
-      return typeof this.obj.data.Rotate != 'number';
-    }
 
     return true;
   }
@@ -624,47 +278,6 @@ export default class AppMapDetailsObj extends AppMapDetailsBase<MapMarkerObj | M
     return MsgMgr.getInstance().getName(name) || name;
   }
 
-  dropTableExists() {
-    return Object.keys(this.dropTables).length > 0;
-  }
-
-  shopDataExists() {
-    return Object.keys(this.shopData).length > 0;
-  }
-
-  formatDropTable(): string {
-    let lines = [];
-    let names = Object.keys(this.dropTables);
-    for (var i = 0; i < names.length; i++) {
-      let table = this.dropTables[names[i]];
-      let repeatNum = table.repeat_num;
-      if (repeatNum[0] == repeatNum[1]) {
-        lines.push(`<span style="text-decoration: underline;"><b>${names[i]}</b> - x${repeatNum[0]}</span>`);
-      } else {
-        lines.push(`<span style="text-decoration: underline;"><b>${names[i]}</b> - x${repeatNum[0]}-${repeatNum[1]}</span>`);
-      }
-      let items = Object.keys(table.items).sort(function(a, b) { return table.items[b] - table.items[a]; });
-      for (var j = 0; j < items.length; j++) {
-        lines.push(`  ${table.items[items[j]].toFixed(1).padStart(4, ' ')}% - ${this.getName(items[j])}`);
-      }
-    }
-    return lines.join("\n");
-  }
-
-  getDropTableName() {
-    if (!this.obj || !this.obj.data || !this.obj.data['!Parameters']) {
-      return "";
-    }
-    const params: { [key: string]: any } = this.obj.data['!Parameters'];
-    let dropTableName = "Normal";
-    let keys = ['ArrowName', 'DropTable'];
-    for (var i = 0; i < keys.length; i++) {
-      if (keys[i] in params) {
-        return params[keys[i]];
-      }
-    }
-    return "Normal";
-  }
 
   findItemByHash(group: any[], links: any[], name: string): any {
     let hashes = links.map(link => link.DestUnitHashId);
@@ -727,83 +340,4 @@ export default class AppMapDetailsObj extends AppMapDetailsBase<MapMarkerObj | M
     return L.marker([obj.data.Translate[2], obj.data.Translate[0]], { icon: icon });
   }
 
-  initKorokMarkers() {
-    if (!this.obj)
-      return;
-    const use_icon = true;
-    let map = this.marker.data.mb;
-    if (this.obj.korok_type == "Goal Ring (Race)") {
-      let names = ["FldObj_KorokStartingBlock_A_01", "FldObj_KorokGoal_A_01"];
-      let objs = this.genGroup.filter((obj: any) => names.includes(this.getName(obj.name)));
-      // Start and End Markers
-      let markers = objs.map((obj: any) => this.getKorokMarkerWithIcon(obj).addTo(map.m));
-      this.korokMarkers.push(...markers);
-
-      // Connecting Line
-      let ll = objs.map((obj: any) => [obj.data.Translate[2], obj.data.Translate[0]]);
-      let line = L.polyline(ll, { color: '#cccccc', weight: 1.5 }).addTo(map.m);
-      this.korokMarkers.push(line);
-    } else if (this.obj.korok_type == "Moving Lights") {
-      this.rails.forEach((rail: any) => {
-        let pts = curves.railPath(rail).map((pt: any) => [pt[2], pt[0]]);
-        let line = L.polyline(pts, { color: "#cccccc", weight: 2.0 }).addTo(map.m);
-        this.korokMarkers.push(line);
-      });
-    } else if (this.obj.korok_type == "Rock Pattern") {
-      const rocks = [...rock_target, ...rock_source];
-      let objs = this.genGroup.filter((obj: any) => rocks.includes(this.getName(obj.name)))
-      let markers = objs.map((obj: any) => this.getKorokMarkerWithIcon(obj).addTo(map.m));
-      this.korokMarkers.push(...markers);
-    } else if (this.obj.korok_type == "Flower Trail") {
-      let group = this.genGroup;
-      let start = group.find((g: any) => this.getName(g.name) == "Obj_Plant_Korok_A_01" &&
-        g.data['!Parameters'].IsNoAppearEffect);
-
-      let flowers = this.getFlowersInKorokFlowerTrail(group, start);
-      let style = "color: #E2DF41; font-size: 2em; display: inline;";
-      let style_end = "color: #eeeeee; font-size: 2em;  display: inline;";
-      flowers.forEach((obj: any, i: number) => {
-        let s = (i + 1 == flowers.length) ? style_end : style;
-        if (use_icon) {
-          let m = this.getKorokMarkerWithIcon(obj, s, `<span style="color: #ccc; font-size: 1.2em;">${i + 1}</span>`).addTo(map.m);
-          this.korokMarkers.push(m);
-        } else {
-          let m = L.marker([obj.data.Translate[2], obj.data.Translate[0]]).addTo(map.m);
-          this.korokMarkers.push(m);
-        }
-      });
-      let ll = flowers.map((obj: any) => {
-        let x = obj.data.Translate[0];
-        let z = obj.data.Translate[2];
-        return [z, x];
-      });
-      let line = L.polyline(ll, { color: "#cccccc", weight: 1.5 }).addTo(map.m);
-      this.korokMarkers.push(line);
-    }
-  }
-
-  keepKorokMarkersAlive() {
-    this.staticData.persistentKorokMarkers.push(... this.korokMarkers);
-    this.korokMarkers = [];
-  }
-
-  forgetPersistentKorokMarkers() {
-    let map = this.marker.data.mb;
-    this.staticData.persistentKorokMarkers.forEach(m => m.remove());
-    this.staticData.persistentKorokMarkers = [];
-  }
-
-  keepRailMarkersAlive() {
-    this.staticData.persistentRailMarkers.push(... this.railMarkers);
-    this.staticData.persistentRailLimits = this.getColorlineLimits() || {};
-    this.railMarkers = [];
-    this.railLimits = {};
-  }
-
-  forgetPersistentRailMarkers() {
-    this.staticData.persistentRailMarkers.forEach(m => m.remove());
-    this.staticData.persistentRailMarkers = [];
-    this.staticData.persistentRailLimits = {};
-    this.forgetColorScale();
-  }
 }

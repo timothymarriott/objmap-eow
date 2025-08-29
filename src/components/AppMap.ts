@@ -25,9 +25,7 @@ import { SearchResultGroup, SearchExcludeSet, SEARCH_PRESETS } from '@/MapSearch
 import * as save from '@/save';
 
 import MixinUtil from '@/components/MixinUtil';
-import AppMapDetailsDungeon from '@/components/AppMapDetailsDungeon';
 import AppMapDetailsObj from '@/components/AppMapDetailsObj';
-import AppMapDetailsPlace from '@/components/AppMapDetailsPlace';
 import AppMapFilterMainButton from '@/components/AppMapFilterMainButton';
 import AppMapSettings from '@/components/AppMapSettings';
 import ModalGotoCoords from '@/components/ModalGotoCoords';
@@ -73,50 +71,55 @@ const MARKER_COMPONENTS: { [type: string]: MarkerComponent } = Object.freeze({
     filterIcon: MapIcons.CHECKPOINT.options.iconUrl,
     filterLabel: 'Locations',
   },
-  'Dungeon': {
-    cl: MapMarkers.MapMarkerDungeon,
-    detailsComponent: 'AppMapDetailsDungeon',
-    enableUpdates: false,
-    filterIcon: MapIcons.DUNGEON.options.iconUrl,
-    filterLabel: 'Shrines',
+  'HeartPiece': {
+    cl: MapMarkers.MapMarkerHeartPiece,
+    filterIcon: MapIcons.HEART_PIECE.options.iconUrl,
+    filterLabel: 'Heart Pieces',
   },
-  'Place': {
-    cl: MapMarkers.MapMarkerPlace,
-    detailsComponent: 'AppMapDetailsPlace',
-    enableUpdates: false,
-    filterIcon: MapIcons.VILLAGE.options.iconUrl,
-    filterLabel: 'Places',
+  'Stamp': {
+    cl: MapMarkers.MapMarkerStamp,
+    filterIcon: MapIcons.STAMP.options.iconUrl,
+    filterLabel: 'Stamps',
   },
-  'DungeonDLC': {
-    cl: MapMarkers.MapMarkerDungeonDLC,
-    detailsComponent: 'AppMapDetailsDungeon',
-    enableUpdates: false,
-    filterIcon: MapIcons.DUNGEON_DLC.options.iconUrl,
-    filterLabel: 'DLC Shrines',
+  'Warp': {
+    cl: MapMarkers.MapMarkerWarp,
+    filterIcon: MapIcons.WARP.options.iconUrl,
+    filterLabel: 'Waypoints',
   },
-  'Tower': {
-    cl: MapMarkers.MapMarkerTower,
-    enableUpdates: false,
-    filterIcon: MapIcons.TOWER.options.iconUrl,
-    filterLabel: 'Towers',
+  'MightCrystal': {
+    cl: MapMarkers.MapMarkerMightCrystal,
+    filterIcon: MapIcons.MIGHT_CRYSTAL.options.iconUrl,
+    filterLabel: 'Might Crystals',
+  },
+  'Town': {
+    cl: MapMarkers.MapMarkerTown,
+    filterIcon: MapIcons.TOWN.options.iconUrl,
+    filterLabel: 'Towns',
   },
   'Shop': {
     cl: MapMarkers.MapMarkerShop,
-    filterIcon: MapIcons.SHOP_YOROZU.options.iconUrl,
+    filterIcon: MapIcons.SHOP.options.iconUrl,
     filterLabel: 'Shops',
   },
-  'Labo': {
-    cl: MapMarkers.MapMarkerLabo,
-    enableUpdates: false,
-    filterIcon: MapIcons.LABO.options.iconUrl,
-    filterLabel: 'Tech Labs',
+  'SubArea': {
+    cl: MapMarkers.MapMarkerSubArea,
+    filterIcon: MapIcons.SUB_AREA.options.iconUrl,
+    filterLabel: 'Sub Areas',
   },
-  'Korok': {
-    cl: MapMarkers.MapMarkerKorok,
-    detailsComponent: 'AppMapDetailsObj',
-    enableUpdates: false,
-    filterIcon: MapIcons.KOROK.options.iconUrl,
-    filterLabel: 'Koroks',
+  'Rift': {
+    cl: MapMarkers.MapMarkerRift,
+    filterIcon: MapIcons.RIFT.options.iconUrl,
+    filterLabel: 'Rifts',
+  },
+  'Minigame': {
+    cl: MapMarkers.MapMarkerMinigame,
+    filterIcon: MapIcons.MINIGAME.options.iconUrl,
+    filterLabel: 'Minigames',
+  },
+  'Smoothie': {
+    cl: MapMarkers.MapMarkerSmoothie,
+    filterIcon: MapIcons.SMOOTHIE.options.iconUrl,
+    filterLabel: 'Smoothie',
   },
 });
 
@@ -210,9 +213,7 @@ function addPopupAndTooltip(layer: L.Marker | L.Polyline, root: any) {
 
 @Component({
   components: {
-    AppMapDetailsDungeon,
     AppMapDetailsObj,
-    AppMapDetailsPlace,
     AppMapFilterMainButton,
     AppMapSettings,
     ModalGotoCoords,
@@ -236,7 +237,6 @@ export default class AppMap extends mixins(MixinUtil) {
   private setLineColorThrottler!: () => void;
 
   private previousGotoMarker: L.Marker | null = null;
-  private greatPlateauBarrierShown = false;
 
   private detailsComponent = '';
   private detailsMarker: ui.Unobservable<MapMarker> | null = null;
@@ -257,28 +257,16 @@ export default class AppMap extends mixins(MixinUtil) {
   private searchExcludedSets: SearchExcludeSet[] = [];
   private readonly MAX_SEARCH_RESULT_COUNT = 2000;
 
-  private hardModeExcludeSet!: SearchExcludeSet;
-  private lastBossExcludeSet!: SearchExcludeSet;
-  private ohoExcludeSet!: SearchExcludeSet;
-
   private areaMapLayer = new ui.Unobservable(L.layerGroup());
   private areaMapLayersByData: ui.Unobservable<Map<any, L.Layer[]>> = new ui.Unobservable(new Map());
-  private areaAutoItem = new ui.Unobservable(L.layerGroup());
 
   shownAreaMap = '';
   areaWhitelist = '';
   showKorokIDs = false;
-  shownAutoItem = '';
   staticTooltip = false;
 
   private mapUnitGrid = new ui.Unobservable(L.layerGroup());
   showMapUnitGrid = false;
-
-  private mapSafeAreas = new ui.Unobservable(L.layerGroup());
-  showSafeAreas = false;
-
-  private mapCastleAreas = new ui.Unobservable(L.layerGroup());
-  showCastleAreas = false;
 
   showBaseMap = true;
   showReferenceGrid = false;
@@ -411,7 +399,6 @@ export default class AppMap extends mixins(MixinUtil) {
       el.scrollTop = this.sidebarPaneScrollPos.get(this.sidebarActivePane) || 0;
     });
     this.updateSidebarClass();
-    this.updateHylianMode();
   }
 
   closeSidebar() {
@@ -423,11 +410,6 @@ export default class AppMap extends mixins(MixinUtil) {
     this.updateSidebarClass();
   }
 
-  toggleHylianMode() {
-    Settings.getInstance().hylianMode = !Settings.getInstance().hylianMode;
-    this.updateHylianMode();
-  }
-
   updateSidebarClass() {
     const el = (document.getElementById('sidebar'))!;
     if (Settings.getInstance().left) {
@@ -436,15 +418,6 @@ export default class AppMap extends mixins(MixinUtil) {
     } else {
       el.classList.add('leaflet-sidebar-right');
       el.classList.remove('leaflet-sidebar-left');
-    }
-  }
-
-  updateHylianMode() {
-    const el = (document.getElementById('app'))!;
-    if (Settings.getInstance().hylianMode) {
-      el.classList.add('hylian-mode');
-    } else {
-      el.classList.remove('hylian-mode');
     }
   }
 
@@ -880,35 +853,6 @@ export default class AppMap extends mixins(MixinUtil) {
     this.setLineColorThrottler();
   }
 
-  showGreatPlateauBarrier() {
-    if (!this.greatPlateauBarrierShown) {
-      const RESPAWN_POS: Point = [-1021.7286376953125, 0, 1792.6009521484375];
-      const respawnPosMarker = new MapMarkers.MapMarkerPlateauRespawnPos(this.map, RESPAWN_POS);
-      const topLeft = this.map.fromXYZ([-1600, 0, 1400]);
-      const bottomRight = this.map.fromXYZ([-350, 0, 2400]);
-      const rect = L.rectangle(L.latLngBounds(topLeft, bottomRight), {
-        fill: false,
-        stroke: true,
-        color: '#c50000',
-        weight: 2,
-        // @ts-ignore
-        contextmenu: true,
-        contextmenuItems: [{
-          text: 'Hide barrier and respawn point',
-          callback: () => {
-            respawnPosMarker.getMarker().remove();
-            rect.remove();
-            this.greatPlateauBarrierShown = false;
-          },
-        }],
-      });
-      rect.addTo(this.map.m);
-      respawnPosMarker.getMarker().addTo(this.map.m);
-      this.greatPlateauBarrierShown = true;
-    }
-    this.map.setView([-965, 0.0, 1875], 5);
-  }
-
   gotoOnSubmit(xyz: Point) {
     this.map.setView(xyz);
     if (this.previousGotoMarker)
@@ -1135,7 +1079,7 @@ export default class AppMap extends mixins(MixinUtil) {
       const xyz = this.map.toXYZ(latlng);
       if (!map.isValidPoint(xyz))
         return;
-      this.searchAddGroup(`map:"${mapType}/${map.pointToMapUnit(xyz)}"`);
+
     });
   }
 
@@ -1174,10 +1118,8 @@ export default class AppMap extends mixins(MixinUtil) {
   }
 
   initSettings() {
-    this.hardModeExcludeSet = new SearchExcludeSet('hard:1', '', true);
-    this.lastBossExcludeSet = new SearchExcludeSet('lastboss:0', '', true);
-    this.ohoExcludeSet = new SearchExcludeSet('onehit:1', '', true);
-    Promise.all([this.hardModeExcludeSet.init(), this.lastBossExcludeSet.init(), this.ohoExcludeSet.init()]).then(() => {
+
+    Promise.all([ ]).then(() => {
       for (const group of this.searchGroups)
         group.update(SearchResultUpdateMode.UpdateVisibility, this.searchExcludedSets);
     });
@@ -1188,14 +1130,7 @@ export default class AppMap extends mixins(MixinUtil) {
 
   private reloadSettings() {
     this.searchExcludedSets = this.searchExcludedSets.filter(set =>
-      set != this.hardModeExcludeSet && set != this.lastBossExcludeSet && set != this.ohoExcludeSet);
-
-    if (!Settings.getInstance().hardMode)
-      this.searchExcludedSets.push(this.hardModeExcludeSet);
-    if (Settings.getInstance().lastBossMode)
-      this.searchExcludedSets.push(this.lastBossExcludeSet);
-    if (!Settings.getInstance().ohoMode)
-      this.searchExcludedSets.push(this.ohoExcludeSet);
+      true);
 
     for (const group of this.searchGroups)
       group.update(SearchResultUpdateMode.UpdateVisibility | SearchResultUpdateMode.UpdateStyle | SearchResultUpdateMode.UpdateTitle, this.searchExcludedSets);
@@ -1205,19 +1140,6 @@ export default class AppMap extends mixins(MixinUtil) {
 
   initAreaMap() {
     this.areaMapLayer.data.addTo(this.map.m);
-  }
-  initAutoItem() {
-    this.areaAutoItem.data.addTo(this.map.m);
-  }
-
-  async loadAutoItem(name: string) {
-    this.areaAutoItem.data.clearLayers();
-    if (!name)
-      return;
-    const areas = await MapMgr.getInstance().fetchAreaMap(name);
-    let layers: L.Path[] = ui.areaMapToLayers(areas);
-    layers.forEach(l => this.areaAutoItem.data.addLayer(l));
-    this.areaAutoItem.data.setZIndex(1000);
   }
 
 
@@ -1315,38 +1237,6 @@ export default class AppMap extends mixins(MixinUtil) {
   onShownAreaMapChanged() {
     this.$nextTick(() => this.loadAreaMap(this.shownAreaMap));
   }
-  onShownAutoItemChanged() {
-    this.$nextTick(() => this.loadAutoItem(this.shownAutoItem));
-  }
-
-  async initMapSafeAreas() {
-    const areas = await MapMgr.getInstance().fetchAreaMap("AutoSafe");
-    let layers: L.Path[] = ui.areaMapToLayers(areas);
-    layers.forEach(l => this.mapSafeAreas.data.addLayer(l));
-  }
-
-  async initMapCastleAreas() {
-    const areas: any = await MapMgr.getInstance().fetchAreaMap("castle");
-    const features = areas.features;
-
-    const layers: L.GeoJSON[] = features.map((feature: any, i: number) => {
-      let color = ui.genColor(300, feature.properties.y);
-      let layer = L.geoJSON(feature, {
-        style: function(_) {
-          return { weight: 2, fillOpacity: 0.2, color: color };
-        },
-        // @ts-ignore
-        contextmenu: true,
-      });
-      layer.bindTooltip(`${feature.properties.name} @ ${feature.properties.y}`);
-      layer.on('mouseover', () => { layer.setStyle({ weight: 4, fillOpacity: 0.3 }); });
-      layer.on('mouseout', () => { layer.setStyle({ weight: 2, fillOpacity: 0.2 }); });
-      return layer;
-    });
-    layers.forEach(l => this.mapCastleAreas.data.addLayer(l));
-
-    this.mapCastleAreas.data.setZIndex(1000);
-  }
 
 
   initMapUnitGrid() {
@@ -1364,10 +1254,6 @@ export default class AppMap extends mixins(MixinUtil) {
           contextmenu: true,
         });
         rect.bringToBack();
-        rect.bindTooltip(map.pointToMapUnit(topLeft), {
-          permanent: true,
-          direction: 'center',
-        });
         this.mapUnitGrid.data.addLayer(rect);
       }
     }
@@ -1378,30 +1264,6 @@ export default class AppMap extends mixins(MixinUtil) {
       this.mapUnitGrid.data.remove();
       if (this.showMapUnitGrid)
         this.mapUnitGrid.data.addTo(this.map.m);
-    });
-  }
-
-  onShowCastleAreas() {
-    this.$nextTick(() => {
-      this.mapCastleAreas.data.remove();
-      if (this.showCastleAreas) {
-        if (this.mapCastleAreas.data.getLayers().length <= 0) {
-          this.initMapCastleAreas();
-        }
-        this.mapCastleAreas.data.addTo(this.map.m);
-      }
-    });
-  }
-
-  onShowSafeAreas() {
-    this.$nextTick(() => {
-      this.mapSafeAreas.data.remove();
-      if (this.showSafeAreas) {
-        if (this.mapSafeAreas.data.getLayers().length <= 0) {
-          this.initMapSafeAreas();
-        }
-        this.mapSafeAreas.data.addTo(this.map.m);
-      }
     });
   }
 
@@ -1426,7 +1288,6 @@ export default class AppMap extends mixins(MixinUtil) {
     this.initMapRouteIntegration();
     this.initMarkers();
     this.initAreaMap();
-    this.initAutoItem();
     this.initMapUnitGrid();
     this.initSidebar();
     this.initDrawTools();
@@ -1444,8 +1305,8 @@ export default class AppMap extends mixins(MixinUtil) {
 
     if (this.$route.query.id) {
       // format: MapType,MapName,HashId
-      const [mapType, mapName, hashId] = this.$route.query.id.toString().split(',');
-      MapMgr.getInstance().getObj(mapType, mapName, parseInt(hashId, 0)).then((obj) => {
+      const [mapName, hashId] = this.$route.query.id.toString().split(',');
+      MapMgr.getInstance().getObj(mapName, parseInt(hashId)).then((obj) => {
         if (obj)
           this.$emit('AppMap:open-obj', obj);
       });

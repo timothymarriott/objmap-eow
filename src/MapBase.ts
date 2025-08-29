@@ -12,32 +12,23 @@ import '@/util/leaflet_tile_workaround.js';
 import { Settings } from './util/settings';
 import { MapMgr } from '@/services/MapMgr';
 
-declare module 'leaflet' {
-  export type RasterCoords = any;
-  export let RasterCoords: any;
-}
-
 export const SHOW_ALL_OBJS_FOR_MAP_UNIT_EVENT = 'objmap::SHOW_ALL_OBJS_FOR_MAP_UNIT';
 export const MARKER_SELECTED_EVENT = 'objmap::markerSelected';
 
 export class MapBase {
   m!: L.Map;
-  private rc!: L.RasterCoords;
   center: Point = [0, 0, 0];
   zoom: number = map.DEFAULT_ZOOM;
   private zoomChangeCbs: Array<(zoom: number) => void> = [];
   baseImage!: L.Layer;
-  baseLayer!: L.Layer;
   refGrid: Array<L.LayerGroup> = [];
   refGridOn: boolean = false;
 
   showBaseMap(show: boolean) {
     if (show) {
       this.m.addLayer(this.baseImage);
-      this.m.addLayer(this.baseLayer);
     } else {
       this.m.removeLayer(this.baseImage);
-      this.m.removeLayer(this.baseLayer);
     }
   }
 
@@ -118,8 +109,7 @@ export class MapBase {
   private constructMap(element: string) {
     const crs = L.Util.extend({}, L.CRS.Simple);
     // @ts-ignore
-    crs.transformation = new L.Transformation(4 / map.TILE_SIZE, map.MAP_SIZE[0] / map.TILE_SIZE,
-      4 / map.TILE_SIZE, map.MAP_SIZE[1] / map.TILE_SIZE);
+    crs.transformation = new L.Transformation(0.3, 0, 0.3, 0);
 
     L.Canvas.include({
       _botwDrawCanvasImageMarker(layer: CanvasMarker) {
@@ -154,11 +144,16 @@ export class MapBase {
       zoom: map.DEFAULT_ZOOM,
       minZoom: map.MIN_ZOOM,
       maxZoom: map.MAX_ZOOM,
-      maxBoundsViscosity: 1.0,
+
       crs,
+
+      center: [231, 255],
 
       renderer,
       preferCanvas: true,
+
+      maxBounds: [[-36, -50], [513.4, 714.0]],
+      maxBoundsViscosity: 5,
 
       // @ts-ignore
       contextmenu: true,
@@ -185,9 +180,6 @@ export class MapBase {
       ],
     });
 
-    this.rc = new L.RasterCoords(this.m, map.MAP_SIZE);
-    this.rc.setMaxBounds();
-
     this.registerZoomAnimCb((evt: L.ZoomAnimEvent) => {
       this.setZoomProp(evt.zoom);
     });
@@ -197,22 +189,13 @@ export class MapBase {
   }
 
   private initBaseMap() {
-    // Add a base image to make tile loading less noticeable.
     const BASE_PANE = 'base';
     this.m.createPane(BASE_PANE).style.zIndex = '0';
-    const southWest = this.rc.unproject([0, this.rc.height]);
-    const northEast = this.rc.unproject([this.rc.width, 0]);
-    const bounds = new L.LatLngBounds(southWest, northEast);
-    this.baseImage = L.imageOverlay(`${map.GAME_FILES}/maptex/base.png`, bounds, {
+    const bounds = new L.LatLngBounds([[-36, -50], [513.4, 714.0]]);
+    this.baseImage = L.imageOverlay(`${map.EOW_FILES}/maptex/base.png`, bounds, {
       pane: BASE_PANE,
     });
     this.baseImage.addTo(this.m);
-
-    const baseLayer = L.tileLayer(`${map.GAME_FILES}/maptex/{z}/{x}/{y}.png`, {
-      maxNativeZoom: 7,
-    });
-    baseLayer.addTo(this.m);
-    this.baseLayer = baseLayer;
 
     this.m.createPane('front').style.zIndex = '1000';
     this.m.createPane('front2').style.zIndex = '1001';

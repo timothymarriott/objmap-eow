@@ -1,8 +1,8 @@
 {
-  "name": "botw-objmap",
+  "name": "objmap-eow",
   "version": "0.1.0",
   "private": true,
-  "author": "Léo Lam <leo@leolam.fr>",
+  "author": "Timothy Marriott <timothyrmarriott@gmail.com>",
   "scripts": {
     "serve": "env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve",
     "build": "env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build",

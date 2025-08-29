@@ -54,7 +54,3 @@ const RANKUP_MAP: { [actorName: string]: string } = Object.freeze({
   Enemy_Wizzrobe_Fire: 'Enemy_Wizzrobe_Fire_Senior',
   Enemy_Wizzrobe_Ice: 'Enemy_Wizzrobe_Ice_Senior',
 });
-
-export function rankUpEnemyForHardMode(actorName: string): string {
-  return RANKUP_MAP[actorName] || actorName;
-}

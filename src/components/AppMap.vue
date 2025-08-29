@@ -1,10 +1,5 @@
 <template>
 <div class="flex-fill" :class="'zoom-level-'+zoom">
-  <div class="banner" v-show="!settings.decompBannerHidden">
-    Help us understand the BotW engine! <a href="https://github.com/zeldaret/botw" target="_blank">Contribute to the decompilation project now</a>
-
-    <button type="button" aria-label="Close" class="close" @click="settings.decompBannerHidden = true">×</button>
-  </div>
 
   <div id="lmap" class="h-100"></div>
 
@@ -17,13 +12,11 @@
         <li class="d-none"><a href="#spane-search-help" role="tab"></a></li>
         <li><a href="#spane-search" role="tab"><i class="fa fa-search"></i></a></li>
         <li><a href="#spane-filter" role="tab"><i class="fa fa-filter"></i></a></li>
-        <li class="disabled"><a href="#spane-dummy" role="tab"><i class="fa fa-tasks"></i></a></li>
         <li><a href="#spane-draw" role="tab"><i class="fa fa-draw-polygon"></i></a></li>
         <li><a href="#spane-tools" role="tab"><i class="fa fa-tools"></i></a></li>
         <li><a href="#spane-settings" role="tab"><i class="fa fa-cog"></i></a></li>
       </ul>
       <ul role="tablist">
-        <li @click.capture.prevent.stop="toggleHylianMode()"><a href="#dummy" v-b-tooltip.hover.right title="Yahaha! You found me!"><i class="fas fa-seedling"></i></a></li>
         <li v-show="settings.left" @click.capture.prevent.stop="toggleSidebarSide()"><a href="#toggle-sidebar-side" v-b-tooltip.hover.right title="Move to the right side"><i class="far fa-caret-square-right"></i></a></li>
         <li v-show="!settings.left" @click.capture.prevent.stop="toggleSidebarSide()"><a href="#toggle-sidebar-side" v-b-tooltip.hover.left title="Move to the left side"><i class="far fa-caret-square-left"></i></a></li>
       </ul>
@@ -239,9 +232,7 @@
             <b-btn size="sm" variant="primary" @click="updateAreaMapVisibility()"><i class="fa fa-filter"></i></b-btn>
           </div>
         </b-form-group>
-        <b-checkbox switch v-model="showSafeAreas" @change="onShowSafeAreas">Enemy non-search areas (safe zones)</b-checkbox>
         <b-checkbox switch v-model="showMapUnitGrid" @change="onShowMapUnitGridChanged">Show map unit grid</b-checkbox>
-        <b-checkbox switch v-model="showCastleAreas" @change="onShowCastleAreas">Show Hyrule castle interior</b-checkbox>
         <b-checkbox switch v-model="showBaseMap" @change="onShowBaseMap">Show base map</b-checkbox>
         <b-checkbox switch v-model="showReferenceGrid" @change="onShowReferenceGrid">
           <div title="Display an overlap map with region outlines and grid markers, similar to that before Tower activation. This map can be displayed over the base map.">
@@ -249,16 +240,6 @@
           </div>
         </b-checkbox>
         <hr/>
-        <h4 class="subsection-heading">Item Auto Placement</h4>
-        <b-radio-group stacked class="mb-4" v-model="shownAutoItem" @change="onShownAutoItemChanged">
-          <b-radio value="">None</b-radio>
-          <b-radio value="AutoFish">Auto Fish</b-radio>
-          <b-radio value="AutoBird">Auto Bird</b-radio>
-          <b-radio value="AutoInsect">Auto Insect</b-radio>
-          <b-radio value="AutoAnimal">Auto Animal</b-radio>
-          <b-radio value="AutoEnemy">Auto Enemy</b-radio>
-          <b-radio value="AutoMaterial">Auto Material</b-radio>
-        </b-radio-group>
       </div>
 
       <div class="leaflet-sidebar-pane" id="spane-draw">
@@ -318,9 +299,6 @@
         <div class="leaflet-sidebar-close" @click="closeSidebar()"><i class="fa fa-times"></i></div>
         <h1 v-if="detailsMarker" class="location-title leaflet-sidebar-header" :title="detailsMarker.data.title"><span>{{detailsMarker.data.title}}</span></h1>
         <component v-if="detailsComponent" :is="detailsComponent" v-bind:marker="detailsMarker"></component>
-      </div>
-
-      <div class="leaflet-sidebar-pane" id="spane-dummy">
       </div>
 
     </div>
@@ -412,16 +390,6 @@
   &.type-Mountain {
     font-size: 18px;
   }
-
-  .location-marker-type {
-    font-family: Sheikah;
-    display: block;
-    font-size: 9px;
-    text-shadow: none;
-    color: #c6b981;
-    opacity: 0.7;
-    margin-top: -4px;
-  }
 }
 
 .map-marker {
@@ -441,35 +409,6 @@
   }
 }
 
-.hylian-mode {
-  #sidebar, .location-title, .leaflet-tooltip, .map-tooltip {
-    font-family: Sheikah !important;
-  }
-
-  .location-title {
-    font-size: 20px !important;
-  }
-
-  .obj-main-info {
-    font-size: 85%;
-  }
-
-  #sidebar {
-    font-size: 13px;
-  }
-
-  .map-filter-main-button {
-    font-size: 11px;
-  }
-
-  #sidebar .dropdown-menu {
-    font-size: 12px;
-  }
-
-  .map-location {
-    font-size: 80%;
-  }
-}
 
 .marker-color {
     width: 1em;

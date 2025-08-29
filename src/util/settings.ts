@@ -30,19 +30,10 @@ export class Settings {
   mapType!: string;
   mapName!: string;
 
-  hardMode!: boolean;
-  ohoMode!: boolean;
-  lastBossMode!: boolean;
-
   customSearchPresets!: Array<[string, string]>;
 
   left!: boolean;
-  hylianMode!: boolean;
   drawControlsShown!: boolean;
-
-  decompBannerHidden!: boolean;
-
-  showUnloadRadius!: boolean;
 
   private constructor() {
     this.load();
@@ -61,17 +52,11 @@ export class Settings {
     this.colorPerActor = parse(data.colorPerActor, Id, true);
     this.useActorNames = parse(data.useActorNames, Id, false);
     this.useHexForHashIds = parse(data.useHexForHashIds, Id, true);
-    this.hardMode = parse(data.hardMode, Id, false);
-    this.ohoMode = parse(data.ohoMode, Id, false);
-    this.lastBossMode = parse(data.lastBossMode, Id, false);
     this.customSearchPresets = parse(data.customSearchPresets, Id, []);
     this.left = parse(data.left, Id, true);
     this.mapType = parse(data.mapType, Id, 'MainField');
     this.mapName = parse(data.mapName, Id, '');
-    this.hylianMode = false;
     this.drawControlsShown = parse(data.drawControlsShown, Id, false);
-    this.decompBannerHidden = parse(data.decompBannerHidden, Id, false);
-    this.showUnloadRadius = parse(data.showUnloadRadius, Id, false);
 
     this.invokeCallbacks();
   }
@@ -85,17 +70,11 @@ export class Settings {
       colorPerActor: this.colorPerActor,
       useActorNames: this.useActorNames,
       useHexForHashIds: this.useHexForHashIds,
-      hardMode: this.hardMode,
-      ohoMode: this.ohoMode,
-      lastBossMode: this.lastBossMode,
       customSearchPresets: this.customSearchPresets,
       left: this.left,
       mapType: this.mapType,
       mapName: this.mapName,
-      hylianMode: this.hylianMode,
       drawControlsShown: this.drawControlsShown,
-      decompBannerHidden: this.decompBannerHidden,
-      showUnloadRadius: this.showUnloadRadius,
     };
     // Merge with existing data to avoid data loss.
     const existingDataStr = localStorage.getItem(Settings.KEY);

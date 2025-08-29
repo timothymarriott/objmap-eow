@@ -60,12 +60,8 @@ export function shadeColor(color: string, percent: number) {
 }
 
 function areaTooltip(area: any): string {
-  let auto_areas = ['Fish', 'Bird', 'Insect', 'Animal', 'Enemy', 'Material'];
   if (area.type == "Safe") {
     return "Safe Area";
-  } else if (auto_areas.includes(area.type)) {
-    let parts = area.items.map((item: any) => `- ${item.real_name}: ${item.num}`).join("<br/>");
-    return [`Auto ${area.type}`, parts, `<small>Field Map Area ${area.field_map_area}</small>`].join("<br/>");
   }
   return 'Area';
 }
@@ -123,7 +119,7 @@ export function circle(loc: number[], scale: number[], rotate: number[]): L.Circ
 }
 
 export function capsule(loc: number[], scale: number[], rotate: number[]): L.Circle | L.Polygon {
-  if (Math.abs(rotate[0] - Math.PI / 2) < 0.01) { // 
+  if (Math.abs(rotate[0] - Math.PI / 2) < 0.01) { //
     scale = [scale[1] + scale[2], scale[1], scale[2]];
     return rectangle(loc, scale, [0, 0, 0]);
   } else {
@@ -233,4 +229,3 @@ export function leafletType(layer: L.Layer): LeafletType {
 export function getName(name: string) {
   return MsgMgr.getInstance().getName(name) || name;
 }
-
