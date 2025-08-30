@@ -16,7 +16,6 @@
     <h4 class="subsection-heading">Object Display</h4>
     <p class="mb-1">Some changes only take effect after a reload.</p>
     <b-checkbox switch v-model="s.useActorNames">Use internal actor names</b-checkbox>
-    <b-checkbox switch v-model="s.useHexForHashIds">Show hash IDs in hex</b-checkbox>
     <b-checkbox switch  @change="toggleY">Show object heights in tooltips</b-checkbox>
     <hr>
     <section>

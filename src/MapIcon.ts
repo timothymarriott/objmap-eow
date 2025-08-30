@@ -21,7 +21,7 @@ export const WARP = L.icon({
 
 export const MIGHT_CRYSTAL = L.icon({
   iconUrl: '/icons/might_crystal.png',
-  iconSize: L.point(36, 36),
+  iconSize: L.point(42, 42),
   className: 'mapicon-might_crystal',
 });
 
@@ -39,7 +39,7 @@ export const SHOP = L.icon({
 
 export const SUB_AREA = L.icon({
   iconUrl: '/icons/sub_area.png',
-  iconSize: L.point(36, 36),
+  iconSize: L.point(20, 20),
   className: 'mapicon-sub_area',
 });
 
@@ -69,7 +69,7 @@ export const LUBERI = L.icon({
 
 export const MINIGAME = L.icon({
   iconUrl: '/icons/minigame.png',
-  iconSize: L.point(36, 36),
+  iconSize: L.point(20, 20),
   className: 'mapicon-minigame',
 });
 
@@ -83,6 +83,12 @@ export const SMOOTHIE = L.icon({
 
 export const CHECKPOINT = L.icon({
   iconUrl: '/icons/sub_area.png',
+  iconSize: L.point(36, 36),
+  tooltipAnchor: [0, 18],
+});
+
+export const GENERIC = L.icon({
+  iconUrl: '/icons/generic.png',
   iconSize: L.point(36, 36),
   tooltipAnchor: [0, 18],
 });

@@ -27,8 +27,6 @@ export default class MixinUtil extends Vue {
   }
 
   formatObjId(id: number) {
-    if (!Settings.getInstance().useHexForHashIds)
-      return id.toString(10);
-    return '0x' + id.toString(16).padStart(8, '0');
+    return id.toString(16).padStart(8, '0');
   }
 }

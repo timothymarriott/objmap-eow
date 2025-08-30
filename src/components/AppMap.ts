@@ -105,6 +105,7 @@ const MARKER_COMPONENTS: { [type: string]: MarkerComponent } = Object.freeze({
     cl: MapMarkers.MapMarkerSubArea,
     filterIcon: MapIcons.SUB_AREA.options.iconUrl,
     filterLabel: 'Sub Areas',
+
   },
   'Rift': {
     cl: MapMarkers.MapMarkerRift,
@@ -262,14 +263,9 @@ export default class AppMap extends mixins(MixinUtil) {
 
   shownAreaMap = '';
   areaWhitelist = '';
-  showKorokIDs = false;
   staticTooltip = false;
 
-  private mapUnitGrid = new ui.Unobservable(L.layerGroup());
-  showMapUnitGrid = false;
-
   showBaseMap = true;
-  showReferenceGrid = false;
 
   private tempObjMarker: ui.Unobservable<MapMarker> | null = null;
 
@@ -326,27 +322,6 @@ export default class AppMap extends mixins(MixinUtil) {
     this.updateMarkers();
   }
 
-  // Similar to updateMarkers() but only called
-  //   on toggle of KorokIDs
-  updateKorokIDs() {
-    let type = "Korok";
-    const info = MapMgr.getInstance().getInfoMainField();
-    if (Settings.getInstance().shownGroups.has(type)) {
-      this.markerGroups.get(type)!.destroy();
-      this.markerGroups.delete(type);
-
-      const markers: any[] = info.markers[type];
-      const component = MARKER_COMPONENTS[type];
-      const group = new MapMarkerGroup(
-        markers.map((m: any) => new (component.cl)(this.map, m, { showLabel: this.showKorokIDs })),
-        valueOrDefault(component.preloadPad, 1.0),
-        valueOrDefault(component.enableUpdates, true));
-      this.markerGroups.set(type, group);
-      group.addToMap(this.map.m);
-      group.update();
-    }
-  }
-
   updateMarkers() {
     const info = MapMgr.getInstance().getInfoMainField();
     for (const type of Object.keys(info.markers)) {
@@ -366,7 +341,7 @@ export default class AppMap extends mixins(MixinUtil) {
       const markers: any[] = info.markers[type];
       const component = MARKER_COMPONENTS[type];
       const group = new MapMarkerGroup(
-        markers.map((m: any) => new (component.cl)(this.map, m, { showLabel: this.showKorokIDs })),
+        markers.map((m: any) => new (component.cl)(this.map, m, { showLabel: false })),
         valueOrDefault(component.preloadPad, 1.0),
         valueOrDefault(component.enableUpdates, true));
       this.markerGroups.set(type, group);
@@ -979,6 +954,13 @@ export default class AppMap extends mixins(MixinUtil) {
     group.update(SearchResultUpdateMode.UpdateVisibility, this.searchExcludedSets);
   }
 
+
+  searchToggleGroupShowAreasStatus(idx: number) {
+    const group = this.searchGroups[idx];
+    group.update(SearchResultUpdateMode.UpdateAreaVisibility, this.searchExcludedSets);
+  }
+
+
   searchViewGroup(idx: number) {
     const group = this.searchGroups[idx];
     this.searchQuery = group.query;
@@ -1034,7 +1016,7 @@ export default class AppMap extends mixins(MixinUtil) {
     //   with a different permanent flag value.
     if (!m.getTooltip().options.permanent) {
       m.unbindTooltip();
-      m.bindTooltip(`${marker.obj.pos[1]}`, { permanent: true });
+      m.bindTooltip(`${marker.obj.translate.y}`, { permanent: true });
       m.openTooltip();
     }
   }
@@ -1238,43 +1220,9 @@ export default class AppMap extends mixins(MixinUtil) {
     this.$nextTick(() => this.loadAreaMap(this.shownAreaMap));
   }
 
-
-  initMapUnitGrid() {
-    for (let i = 0; i < 10; ++i) {
-      for (let j = 0; j < 8; ++j) {
-        const topLeft: Point = [-5000.0 + i * 1000.0, 0.0, -4000.0 + j * 1000.0];
-        const bottomRight: Point = [-5000.0 + (i + 1) * 1000.0, 0.0, -4000.0 + (j + 1) * 1000.0];
-        const rect = L.rectangle(L.latLngBounds(this.map.fromXYZ(topLeft), this.map.fromXYZ(bottomRight)), {
-          fill: true,
-          stroke: true,
-          color: '#009dff',
-          fillOpacity: 0.13,
-          weight: 2,
-          // @ts-ignore
-          contextmenu: true,
-        });
-        rect.bringToBack();
-        this.mapUnitGrid.data.addLayer(rect);
-      }
-    }
-  }
-
-  onShowMapUnitGridChanged() {
-    this.$nextTick(() => {
-      this.mapUnitGrid.data.remove();
-      if (this.showMapUnitGrid)
-        this.mapUnitGrid.data.addTo(this.map.m);
-    });
-  }
-
   onShowBaseMap() {
     this.$nextTick(() => {
       this.map.showBaseMap(this.showBaseMap);
-    });
-  }
-  onShowReferenceGrid() {
-    this.$nextTick(() => {
-      this.map.showReferenceGrid(this.showReferenceGrid);
     });
   }
 
@@ -1288,7 +1236,6 @@ export default class AppMap extends mixins(MixinUtil) {
     this.initMapRouteIntegration();
     this.initMarkers();
     this.initAreaMap();
-    this.initMapUnitGrid();
     this.initSidebar();
     this.initDrawTools();
     this.initMarkerDetails();

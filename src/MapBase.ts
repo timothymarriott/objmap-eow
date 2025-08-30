@@ -32,51 +32,6 @@ export class MapBase {
     }
   }
 
-  async loadTowerAreas() {
-    const areas = await MapMgr.getInstance().fetchAreaMap('MapTower');
-    for (const [data, features] of Object.entries(areas)) {
-      const layers: L.GeoJSON[] = features.map((feature) => {
-        return L.geoJSON(feature, {
-          style: function(_) {
-            return { weight: 0.5, fill: false, color: '#60B0E0' }
-          },
-        });
-      });
-      layers.forEach(layer => this.refGrid[3].addLayer(layer));
-    }
-    this.showReferenceGridInternal();
-  }
-
-  async showReferenceGridInternal() {
-    if (!this.refGrid.length) {
-      this.refGrid = this.createMarkers();
-    }
-    const zoomLevel = this.m.getZoom();
-    let minZoom = [1, 4, 5, 1];
-    if (this.refGridOn) {
-      this.refGrid.forEach((layer, i) => {
-        //for (let i = 0; i < 4; i++) {
-        let visible = this.m.hasLayer(layer);
-        if (zoomLevel >= minZoom[i]) {
-          if (!visible) {
-            this.m.addLayer(layer);
-          }
-        } else {
-          if (visible) {
-            this.m.removeLayer(layer);
-          }
-        }
-      });
-    } else {
-      this.refGrid.forEach(layer => this.m.removeLayer(layer));
-    }
-  }
-
-  showReferenceGrid(show: boolean) {
-    this.refGridOn = show;
-    this.showReferenceGridInternal();
-  }
-
 
   toXYZ(latlng: L.LatLng): Point {
     return [latlng.lng, 0, latlng.lat];
@@ -202,7 +157,6 @@ export class MapBase {
 
     this.refGridOn = false;
     this.m.on("zoom", () => {
-      this.showReferenceGridInternal();
     });
   }
   svgIconBase(width: number) {
@@ -238,7 +192,6 @@ preserveAspectRatio="none"  xmlns="http://www.w3.org/2000/svg" >
         markers[k].addLayer(L.marker([z, x], { icon }));
       }
     }
-    this.loadTowerAreas();
     return markers;
   }
 

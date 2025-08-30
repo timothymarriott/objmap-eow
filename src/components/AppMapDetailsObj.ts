@@ -32,60 +32,25 @@ const DRAGON_HASH_IDS = [
 const rock_target = ["Obj_LiftRockWhite_Korok_A_01", "Obj_LiftRockGerudo_Korok_A_01", "Obj_LiftRockEldin_Korok_A_01"];
 const rock_source = ["Obj_LiftRockWhite_A_01", "Obj_LiftRockGerudo_A_01", "Obj_LiftRockEldin_A_01"];
 
-enum MapLinkDefType {
-  BasicSig = 0x0,
-  AxisX = 0x1,
-  AxisY = 0x2,
-  AxisZ = 0x3,
-  '-AxisX' = 0x4,
-  '-AxisY' = 0x5,
-  '-AxisZ' = 0x6,
-  GimmickSuccess = 0x7,
-  VelocityControl = 0x8,
-  BasicSigOnOnly = 0x9,
-  Remains = 0xA,
-  DeadUp = 0xB,
-  LifeZero = 0xC,
-  Stable = 0xD,
-  ChangeAtnSig = 0xE,
-  Create = 0xF,
-  Delete = 0x10,
-  MtxCopyCreate = 0x11,
-  Freeze = 0x12,
-  ForbidAttention = 0x13,
-  SyncLink = 0x14,
-  CopyWaitRevival = 0x15,
-  OffWaitRevival = 0x16,
-  Recreate = 0x17,
-  AreaCol = 0x18,
-  SensorBind = 0x19,
-  ForSale = 0x1A,
-  ModelBind = 0x1B,
-  PlacementLOD = 0x1C,
-  DemoMember = 0x1D,
-  PhysSystemGroup = 0x1E,
-  StackLink = 0x1F,
-  FixedCs = 0x20,
-  HingeCs = 0x21,
-  LimitHingeCs = 0x22,
-  SliderCs = 0x23,
-  PulleyCs = 0x24,
-  BAndSCs = 0x25,
-  BAndSLimitAngYCs = 0x26,
-  CogWheelCs = 0x27,
-  RackAndPinionCs = 0x28,
-  Reference = 0x29,
-  Invalid = 0x2A,
+function hashString(s: string) {
+  // https://stackoverflow.com/a/7616484/1636285
+  var hash = 0, i, chr;
+  if (s.length === 0) return hash;
+  for (i = 0; i < s.length; i++) {
+    chr = s.charCodeAt(i);
+    hash = ((hash << 5) - hash) + chr;
+    hash |= 0;
+  }
+  return hash >>> 0;
 }
 
 function numOrArrayToArray(x: number | [number, number, number] | undefined): [number, number, number] | undefined {
   return typeof x == 'number' ? [x, x, x] : x;
 }
 
-function isAreaObject(obj: ObjectMinData) {
-  const areaObjectNames = ["Area", "BoxWater", "SpotBgmTag", "PointWindSetTag", "AreaCulling_InnerHide",
-    "AreaCulling_InnerOn", "AreaCulling_OuterNPCMementary", "FarModelCullingArea"];
-  return areaObjectNames.includes(obj.name) || obj.name.startsWith('AirWall');
+export function isAreaObject(obj: ObjectMinData) {
+  const areaObjectNames: string[] = [];
+  return areaObjectNames.includes(obj.name) || obj.name.startsWith("AirWall") || obj.name.startsWith("Sensor");
 }
 
 class StaticData {
@@ -111,12 +76,14 @@ export default class AppMapDetailsObj extends AppMapDetailsBase<MapMarkerObj | M
   private isInvertedLogicTag = false;
 
   private staticData = staticData;
-  areaMarkers: any;
+  areaMarkers: any = [];
 
 
   async init() {
     this.minObj = this.marker.data.obj;
     this.obj = null;
+    this.areaMarkers.forEach((m: { remove: () => any; }) => m.remove());
+    this.areaMarkers = [];
 
     if (this.minObj.objid) {
       this.obj = (await MapMgr.getInstance().getObjByObjId(this.minObj.objid))!;
@@ -167,6 +134,7 @@ export default class AppMapDetailsObj extends AppMapDetailsBase<MapMarkerObj | M
   }
 
   beforeDestroy() {
+    this.areaMarkers.forEach((m: { remove: () => any; }) => m.remove());
     // Rails
     this.updateColorScale();
     if (!this.staticData.persistentRailMarkers.length) {
@@ -236,11 +204,14 @@ export default class AppMapDetailsObj extends AppMapDetailsBase<MapMarkerObj | M
     // A lot of shapes do not use any rotate feature though,
     // and for those this naïve approach should suffice.
 
-    const southWest = L.latLng(z + obj.scale.max_z, x - obj.scale.min_x);
-    const northEast = L.latLng(z - obj.scale.min_z, x + obj.scale.max_x);
+    const southWest = L.latLng(z + scale.max_z, x + scale.max_x);
+    const northEast = L.latLng(z + scale.min_z, x + scale.min_x);
+    console.log(southWest)
+    console.log(northEast)
     areaMarker = L.rectangle(L.latLngBounds(southWest, northEast), {
       // @ts-ignore
       transform: true,
+      color: ui.genColor(1000, hashString(obj.name) % 1000)
     }).addTo(mb.m);
 
 

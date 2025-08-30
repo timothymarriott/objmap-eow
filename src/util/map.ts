@@ -1,3 +1,4 @@
+import { LocationMarkerData, LocationPointerMarkerData, MapMarkerData } from "@/MapMarker";
 
 
 export const GAME_FILES = process.env.VUE_APP_GAME_FILES;
@@ -38,9 +39,7 @@ export function markerTypetoStr(type: MarkerType) {
 
 export const enum ShowLevel {
   Region = 1,
-  Area = 2,
-  Location = 4,
-  SecondaryLocation = 8,
+  Location = 2,
 }
 
 export const DEFAULT_ZOOM = 3;
@@ -50,20 +49,16 @@ export const MAX_ZOOM = 6;
 export function shouldShowLocationMarker(showLevel: ShowLevel, zoom: number) {
   switch (showLevel) {
     case ShowLevel.Region:
-      return zoom === 2;
-    case ShowLevel.Area:
-      return zoom === 3 || zoom === 4;
+      return zoom <= 3;
     case ShowLevel.Location:
-      return zoom >= 5;
-    case ShowLevel.SecondaryLocation:
-      return zoom >= 7;
+      return zoom >= 4;
   }
 }
 
-export class LocationMarkerBase {
-  protected l: any;
+export class LocationMarkerBase<TData extends MapMarkerData> {
+  protected l: TData;
 
-  constructor(data: any) {
+  constructor(data: TData) {
     this.l = data;
   }
 
@@ -71,15 +66,15 @@ export class LocationMarkerBase {
   getXYZ(): Point { return [this.l.Translate.X, this.l.Translate.Y, this.l.Translate.Z]; }
 }
 
-export class LocationMarker extends LocationMarkerBase {
+export class LocationMarker extends LocationMarkerBase<MapMarkerData> {
   getId(): string {
-    return `${this.l.Icon}:${this.l.MessageId || ''}:${this.l.Translate.X}:${this.l.Translate.Y}:${this.l.Translate.Z}`;
+    return `${this.l.Icon}:${this.l.MessageID || ''}:${this.l.Translate.X}:${this.l.Translate.Y}:${this.l.Translate.Z}`;
   }
-  getSaveFlag(): string { return this.l.SaveFlag; }
+  getSaveFlag(): string { return this.l.SaveFlag || ""; }
   getIcon(): string { return this.l.Icon; }
 }
 
-export class LocationPointer extends LocationMarkerBase {
+export class LocationPointer extends LocationMarkerBase<LocationPointerMarkerData> {
   getId(): string {
     return `${this.l.MessageID}:${this.l.ShowLevel}:${this.l.Translate.X}:${this.l.Translate.Y}:${this.l.Translate.Z}`;
   }

@@ -5,6 +5,7 @@ import * as MapMarkers from '@/MapMarker';
 import {MapMgr, ObjectMinData} from '@/services/MapMgr';
 import {Settings} from '@/util/settings';
 import * as ui from '@/util/ui';
+import { isAreaObject } from './components/AppMapDetailsObj';
 
 export interface SearchPreset {
   label: string;
@@ -68,7 +69,7 @@ export class SearchExcludeSet {
 }
 
 export class SearchResultGroup {
-  constructor(public query: string, public label: string, public enabled = true) {
+  constructor(public query: string, public label: string, public enabled = true, public showAreas = false) {
   }
 
   size() {
@@ -99,8 +100,14 @@ export class SearchResultGroup {
           this.markerGroup.data.removeLayer(marker.getMarker());
         this.shownMarkers.data[i] = shouldShow;
       }
+
+
+      const shouldShowArea = this.showAreas;
+
       if (shouldShow)
-        marker.update(this.fillColor, this.strokeColor, mode);
+        marker.update(this.fillColor, this.strokeColor, mode, shouldShowArea);
+
+
     }
   }
 

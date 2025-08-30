@@ -44,8 +44,8 @@
   }
 
   &.active {
-    background-color: #009bff5c;
-    box-shadow: inset 0 0 5px 2px #ffffffa1;
+    background-color: #a855f75c;
+    //box-shadow: inset 0 0 2px 2px #ffffffa1;
   }
 }
 </style>

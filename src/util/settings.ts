@@ -25,7 +25,6 @@ export class Settings {
   colorPerActor!: boolean;
 
   useActorNames!: boolean;
-  useHexForHashIds!: boolean;
 
   mapType!: string;
   mapName!: string;
@@ -51,7 +50,6 @@ export class Settings {
     this.drawLayerGeojson = parse(data.drawLayerGeojson, Id, '');
     this.colorPerActor = parse(data.colorPerActor, Id, true);
     this.useActorNames = parse(data.useActorNames, Id, false);
-    this.useHexForHashIds = parse(data.useHexForHashIds, Id, true);
     this.customSearchPresets = parse(data.customSearchPresets, Id, []);
     this.left = parse(data.left, Id, true);
     this.mapType = parse(data.mapType, Id, 'MainField');
@@ -69,7 +67,6 @@ export class Settings {
       drawLayerGeojson: this.drawLayerGeojson,
       colorPerActor: this.colorPerActor,
       useActorNames: this.useActorNames,
-      useHexForHashIds: this.useHexForHashIds,
       customSearchPresets: this.customSearchPresets,
       left: this.left,
       mapType: this.mapType,

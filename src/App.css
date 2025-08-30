@@ -30,7 +30,7 @@ body {
 }
 
 a, a:active, a:visited {
-  color: #29d1fc;
+  color: #a855f7;
 }
 
 code {
@@ -47,8 +47,8 @@ code {
 
 .pane {
   background-color: #002645b0;
-  color: #29abfc;
-  text-shadow: 0 0 30px #29d1fc7f;
+  color: #9333ea;
+  text-shadow: 0 0 30px #a855f77f;
 }
 
 .pane-header {
@@ -203,4 +203,33 @@ code {
 
 .colorscale-picker-sample:hover {
     outline: 1px solid white;
+}
+
+
+.btn-primary {
+  background-color: #9333ea;
+  border-color: #9333ea;
+}
+
+.btn-primary:hover {
+  background-color: #a855f7;
+  border-color: #9333ea;
+}
+
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #9333ea;
+  border-color: #9333ea;
+}
+
+
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
+  background-color: #a855f7;
+  border-color: #9333ea;
+}
+
+.btn-primary:focus, .btn-primary.focus {
+  background-color: #a855f7;
+  border-color: #9333ea;
+  box-shadow: 0 0 0 0.2rem #a855f70f;
 }

@@ -188,6 +188,8 @@
                 <a class="ml-2" @click="searchRemoveGroup(idx)"><i class="text-danger fa fa-times"></i></a>
                 <a class="ml-2" style="font-size: 90%" v-if="group.query" @click="searchViewGroup(idx)"><i class="fa fa-edit"></i></a>
                 <span class="ml-2">({{group.size()}})</span>
+                <b-form-checkbox class="ml-2 d-inline-block search-enable-checkbox" v-model="group.showAreas" @change="searchToggleGroupShowAreasStatus(idx)"></b-form-checkbox>
+
               </span>
             </div>
             <div class="search-group" v-for="(set, idx) in searchExcludedSets" :key="'searchexclude' + idx">
@@ -217,28 +219,9 @@
         <div class="row">
           <AppMapFilterMainButton v-for="(v, type) in markerComponents" :key="type" :type="type" :label="v.filterLabel" :icon="v.filterIcon" @toggle="updateMarkers" />
         </div>
-        <b-checkbox switch v-model="showKorokIDs" @change="updateKorokIDs">Show Korok IDs</b-checkbox>
         <hr>
-        <h4 class="subsection-heading">Visible map areas</h4>
-        <b-radio-group stacked class="mb-4" v-model="shownAreaMap" @change="onShownAreaMapChanged">
-          <b-radio value="">None</b-radio>
-          <b-radio value="FieldMapArea">Field map areas</b-radio>
-          <b-radio value="MapTower">Map tower areas</b-radio>
-          <b-radio value="LoadBalancer">Load balancer areas</b-radio>
-        </b-radio-group>
-        <b-form-group label="Filter map areas" label-for="mapareafilter">
-          <div class="d-flex mb-1">
-            <input type="search" style="flex: 1" class="form-control form-control-sm mr-2" id="mapareafilter" placeholder="Example: 1,2,3,64" v-model="areaWhitelist">
-            <b-btn size="sm" variant="primary" @click="updateAreaMapVisibility()"><i class="fa fa-filter"></i></b-btn>
-          </div>
-        </b-form-group>
-        <b-checkbox switch v-model="showMapUnitGrid" @change="onShowMapUnitGridChanged">Show map unit grid</b-checkbox>
+
         <b-checkbox switch v-model="showBaseMap" @change="onShowBaseMap">Show base map</b-checkbox>
-        <b-checkbox switch v-model="showReferenceGrid" @change="onShowReferenceGrid">
-          <div title="Display an overlap map with region outlines and grid markers, similar to that before Tower activation. This map can be displayed over the base map.">
-            Show region outlines and grid
-          </div>
-        </b-checkbox>
         <hr/>
       </div>
 
@@ -247,7 +230,7 @@
         <b-btn size="sm" block variant="primary" @click="toggleDraw()"><i class="fa fa-draw-polygon"></i> Toggle draw controls</b-btn>
         <hr>
         <h4 class="subsection-heading">Polyline color</h4>
-        <input type="color"  @input="drawOnColorChange" value="#3388ff"> <b-btn size="sm" variant="link" @click="drawLineColor = '#3388ff'">Reset to default</b-btn>
+        <input type="color"  @input="drawOnColorChange" value="#9333ea"> <b-btn size="sm" variant="link" @click="drawLineColor = '#9333ea'">Reset to default</b-btn>
         <hr>
         <h4 class="subsection-heading">Data import/export</h4>
         <p>Exported data includes search groups and drawn objects.</p>

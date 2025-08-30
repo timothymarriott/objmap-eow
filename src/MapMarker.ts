@@ -72,10 +72,28 @@ class MapMarkerCanvasImpl extends MapMarker {
   protected marker: L.CircleMarker;
 }
 
+export interface MapMarkerData {
+  SaveFlag?: string;
+  Icon: any;
+  Translate: {X: number, Y: number, Z: number};
+  MessageID: string;
+
+}
+
+export interface LocationMarkerData extends MapMarkerData {
+
+}
+
+export interface LocationPointerMarkerData extends MapMarkerData {
+  Type: map.MarkerType;
+  PointerType: any;
+  ShowLevel: any;
+}
+
 class MapMarkerGenericLocationMarker extends MapMarkerImpl {
   public readonly lm: map.LocationMarker;
 
-  private static ICONS_AND_LABELS: { [type: string]: [L.Icon, string] } = {
+  static ICONS_AND_LABELS: { [type: string]: [L.Icon, string] } = {
     'HeartPiece': [MapIcons.HEART_PIECE, 'Heart Piece'],
     'Stamp': [MapIcons.STAMP, ''],
     'Warp': [MapIcons.WARP, ''],
@@ -90,9 +108,10 @@ class MapMarkerGenericLocationMarker extends MapMarkerImpl {
     'Minigame': [MapIcons.MINIGAME, ''],
     'Smoothie': [MapIcons.SMOOTHIE, 'Smoothie Stand'],
     'CheckPoint': [MapIcons.CHECKPOINT, ''],
+    'Generic': [MapIcons.GENERIC, ''],
   };
 
-  constructor(mb: MapBase, l: any, showLabel: boolean, zIndexOffset?: number) {
+  constructor(mb: MapBase, l: MapMarkerData, showLabel: boolean, zIndexOffset?: number) {
     const lm = new map.LocationMarker(l);
     const [icon, label] = MapMarkerGenericLocationMarker.ICONS_AND_LABELS[lm.getIcon()];
     const msgId = lm.getMessageId();
@@ -115,10 +134,10 @@ class MapMarkerGenericLocationMarker extends MapMarkerImpl {
 export class MapMarkerLocation extends MapMarkerCanvasImpl {
   public readonly lp: map.LocationPointer;
 
-  constructor(mb: MapBase, l: any) {
+  constructor(mb: MapBase, l: LocationPointerMarkerData) {
     const lp = new map.LocationPointer(l);
     const markerTypeStr = map.markerTypetoStr(lp.getType());
-    const msg = MsgMgr.getInstance().getMsgWithFile('StaticMsg/LocationMarker', lp.getMessageId());
+    const msg = lp.getMessageId();
 
     super(mb, msg, {x: lp.getXYZ()[0], y: lp.getXYZ()[1], z: lp.getXYZ()[2]}, { stroke: false, fill: false });
     this.marker.unbindTooltip();
@@ -136,61 +155,94 @@ export class MapMarkerLocation extends MapMarkerCanvasImpl {
 }
 
 export class MapMarkerShop extends MapMarkerGenericLocationMarker {
-  constructor(mb: MapBase, l: any) {
+  constructor(mb: MapBase, l: MapMarkerData) {
     super(mb, l, false);
   }
 }
 
 export class MapMarkerHeartPiece extends MapMarkerGenericLocationMarker {
-  constructor(mb: MapBase, l: any) {
+  constructor(mb: MapBase, l: MapMarkerData) {
     super(mb, l, false);
   }
 }
 
 export class MapMarkerStamp extends MapMarkerGenericLocationMarker {
-  constructor(mb: MapBase, l: any) {
+  constructor(mb: MapBase, l: MapMarkerData) {
     super(mb, l, false);
   }
 }
 
 export class MapMarkerWarp extends MapMarkerGenericLocationMarker {
-  constructor(mb: MapBase, l: any) {
+  constructor(mb: MapBase, l: MapMarkerData) {
     super(mb, l, false);
   }
 }
 
-export class MapMarkerMightCrystal extends MapMarkerGenericLocationMarker {
-  constructor(mb: MapBase, l: any) {
-    super(mb, l, false);
+
+export class MapMarkerMightCrystal extends MapMarker {
+  public readonly lm: map.LocationMarker;
+
+  getMarker() { return this.marker; }
+
+  protected setTitle(title: string) {
+    this.title = title;
+    this.marker.options.title = title;
+  }
+
+  protected marker: L.Marker;
+
+  constructor(mb: MapBase, l: MapMarkerData, showLabel: boolean, zIndexOffset?: number) {
+    const lm = new map.LocationMarker(l);
+    const icon = MapIcons.MIGHT_CRYSTAL;
+
+    super(mb);
+    this.title = `Might Crystal x${l.MessageID}`;
+    this.marker = L.marker(this.mb.fromXYZ(lm.getXYZ()), Object.assign({
+      icon,
+      zIndexOffset,
+    }, {
+      title: `Might Crystal x${l.MessageID}`,
+      contextmenu: true,
+    }));
+    super.commonInit();
+
+    if (showLabel) {
+      this.marker.bindTooltip(`Might Crystal x${l.MessageID}`, {
+        permanent: true,
+        direction: 'center',
+        className: `map-marker type-${lm.getIcon()}`,
+      });
+    }
+    this.lm = lm;
   }
 }
 
 export class MapMarkerTown extends MapMarkerGenericLocationMarker {
-  constructor(mb: MapBase, l: any) {
+  constructor(mb: MapBase, l: MapMarkerData) {
     super(mb, l, false);
   }
 }
 
 export class MapMarkerSubArea extends MapMarkerGenericLocationMarker {
-  constructor(mb: MapBase, l: any) {
+  constructor(mb: MapBase, l: MapMarkerData) {
     super(mb, l, false);
   }
 }
 
 export class MapMarkerRift extends MapMarkerGenericLocationMarker {
-  constructor(mb: MapBase, l: any) {
+  constructor(mb: MapBase, l: MapMarkerData) {
     super(mb, l, false);
   }
 }
 
 export class MapMarkerMinigame extends MapMarkerGenericLocationMarker {
-  constructor(mb: MapBase, l: any) {
+  constructor(mb: MapBase, l: MapMarkerData) {
     super(mb, l, false);
   }
 }
 
 export class MapMarkerSmoothie extends MapMarkerGenericLocationMarker {
-  constructor(mb: MapBase, l: any) {
+  constructor(mb: MapBase, l: MapMarkerData) {
     super(mb, l, false);
   }
 }
@@ -223,6 +275,7 @@ export const enum SearchResultUpdateMode {
   UpdateStyle = 1 << 0,
   UpdateVisibility = 1 << 1,
   UpdateTitle = 1 << 2,
+  UpdateAreaVisibility = 1 << 3
 }
 
 export class MapMarkerObj extends MapMarkerCanvasImpl {
@@ -243,13 +296,42 @@ export class MapMarkerObj extends MapMarkerCanvasImpl {
     this.updateTitle();
   }
 
+  addAreaMarker() {
+
+    const {x, y, z} = this.obj.translate;
+    const scale = this.obj.scale;
+
+    if (!scale)
+      return;
+
+    let areaMarker: L.Path;
+    // Super rough approximation. This could be improved by actually projecting the 3D shape...
+    // A lot of shapes do not use any rotate feature though,
+    // and for those this naïve approach should suffice.
+
+    const southWest = L.latLng(z + scale.max_z, x + scale.max_x);
+    const northEast = L.latLng(z + scale.min_z, x + scale.min_x);
+    console.log(southWest)
+    console.log(northEast)
+    areaMarker = L.rectangle(L.latLngBounds(southWest, northEast), {
+      // @ts-ignore
+      transform: true,
+      color: ui.genColor(1000, hashString(this.obj.name) % 1000)
+    }).addTo(this.mb.m);
+
+
+    areaMarker.bringToBack();
+    this.areaMarker = areaMarker;
+  }
+
+
   updateTitle() {
     const actor = this.obj.name;
     this.title = getName(actor);
     setObjMarkerTooltip(this.title, this.marker, this.obj);
   }
 
-  update(groupFillColor: string, groupStrokeColor: string, mode: SearchResultUpdateMode) {
+  update(groupFillColor: string, groupStrokeColor: string, mode: SearchResultUpdateMode, shouldShowArea: boolean) {
     if (mode & SearchResultUpdateMode.UpdateTitle)
       this.updateTitle();
 
@@ -267,17 +349,30 @@ export class MapMarkerObj extends MapMarkerCanvasImpl {
       });
     }
 
+
+    if (shouldShowArea){
+      if (this.areaMarker != null)
+        this.areaMarker.remove();
+      this.addAreaMarker();
+    } else {
+      if (this.areaMarker != null)
+        this.areaMarker.remove();
+    }
+
     const radius = Math.min(Math.max(this.mb.zoom, 4), 7);
     this.marker.setRadius(radius);
     this.marker.setStyle({
       weight: radius >= 5 ? 2 : 0,
     });
   }
+
+
+
+  areaMarker: L.Path | null = null
 }
 
 export class MapMarkerSearchResult extends MapMarkerObj {
   constructor(mb: MapBase, obj: ObjectMinData) {
-    console.log(obj)
     super(mb, obj, '#e02500', '#ff2a00');
   }
 }

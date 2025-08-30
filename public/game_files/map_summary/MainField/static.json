@@ -1,15 +1,3363 @@
 {
   "markers": {
-    "Location": [],
-    "HeartPiece": [],
-    "Stamp": [],
-    "Warp": [],
-    "MightCrystal": [],
+    "Location": [
+      {
+        "MessageID": "Eldin Volcano",
+        "Translate": {
+          "X": 60,
+          "Z": 50,
+          "Y": 0.0
+        },
+        "ShowLevel": 1,
+        "Type": 5
+      },
+      {
+        "MessageID": "Eternal Forest",
+        "Translate": {
+          "X": 205,
+          "Z": 110,
+          "Y": 0.0
+        },
+        "ShowLevel": 1,
+        "Type": 5
+      },
+      {
+        "MessageID": "Hebra Mountain",
+        "Translate": {
+          "X": 395,
+          "Z": 80,
+          "Y": 0.0
+        },
+        "ShowLevel": 1,
+        "Type": 5
+      },
+      {
+        "MessageID": "Hyrule Castle",
+        "Translate": {
+          "X": 310,
+          "Z": 180,
+          "Y": 0.0
+        },
+        "ShowLevel": 1,
+        "Type": 5
+      },
+      {
+        "MessageID": "Jabul Waters",
+        "Translate": {
+          "X": 586,
+          "Z": 157,
+          "Y": 0.0
+        },
+        "ShowLevel": 1,
+        "Type": 5
+      },
+      {
+        "MessageID": "Hyrule Field",
+        "Translate": {
+          "X": 230,
+          "Z": 287,
+          "Y": 0.0
+        },
+        "ShowLevel": 1,
+        "Type": 5
+      },
+      {
+        "MessageID": "Eastern Hyrule Field",
+        "Translate": {
+          "X": 420,
+          "Z": 225,
+          "Y": 0.0
+        },
+        "ShowLevel": 1,
+        "Type": 5
+      },
+      {
+        "MessageID": "Faron Wetlands",
+        "Translate": {
+          "X": 596,
+          "Z": 401,
+          "Y": 0.0
+        },
+        "ShowLevel": 1,
+        "Type": 5
+      },
+      {
+        "MessageID": "Suthorn Forest",
+        "Translate": {
+          "X": 378,
+          "Z": 427,
+          "Y": 0.0
+        },
+        "ShowLevel": 1,
+        "Type": 5
+      },
+      {
+        "MessageID": "Gerudo Desert",
+        "Translate": {
+          "X": 65,
+          "Z": 380,
+          "Y": 0.0
+        },
+        "ShowLevel": 1,
+        "Type": 5
+      },
+      {
+        "MessageID": "Suthorn Prairie",
+        "Translate": {
+          "X": 310,
+          "Z": 370,
+          "Y": 0.0
+        },
+        "ShowLevel": 1,
+        "Type": 5
+      },
+      {
+        "MessageID": "Lake Hylia",
+        "Translate": {
+          "X": 415,
+          "Z": 303,
+          "Y": 0.0
+        },
+        "ShowLevel": 1,
+        "Type": 5
+      },
+      {
+        "MessageID": "Eldin Trail Volcano",
+        "Translate": {
+          "X": 68,
+          "Z": 157,
+          "Y": 0.0
+        },
+        "ShowLevel": 2,
+        "Type": 3
+      },
+      {
+        "MessageID": "Kakariko Village",
+        "Translate": {
+          "X": 95,
+          "Z": 180,
+          "Y": 0.0
+        },
+        "ShowLevel": 2,
+        "Type": 3
+      },
+      {
+        "MessageID": "Hyrule Ranch",
+        "Translate": {
+          "X": 165,
+          "Z": 288,
+          "Y": 0.0
+        },
+        "ShowLevel": 2,
+        "Type": 3
+      },
+      {
+        "MessageID": "Gerudo Town",
+        "Translate": {
+          "X": 11,
+          "Z": 380,
+          "Y": 0.0
+        },
+        "ShowLevel": 2,
+        "Type": 3
+      },
+      {
+        "MessageID": "Oasis",
+        "Translate": {
+          "X": 110,
+          "Z": 402,
+          "Y": 0.0
+        },
+        "ShowLevel": 2,
+        "Type": 3
+      },
+      {
+        "MessageID": "Suthorn Beach",
+        "Translate": {
+          "X": 191,
+          "Z": 460,
+          "Y": 0.0
+        },
+        "ShowLevel": 2,
+        "Type": 3
+      },
+      {
+        "MessageID": "Suthorn Village",
+        "Translate": {
+          "X": 295,
+          "Z": 456,
+          "Y": 0.0
+        },
+        "ShowLevel": 2,
+        "Type": 3
+      },
+      {
+        "MessageID": "Hyrule Castle Town",
+        "Translate": {
+          "X": 315,
+          "Z": 209,
+          "Y": 0.0
+        },
+        "ShowLevel": 2,
+        "Type": 3
+      },
+      {
+        "MessageID": "Zora Cove",
+        "Translate": {
+          "X": 587,
+          "Z": 248,
+          "Y": 0.0
+        },
+        "ShowLevel": 2,
+        "Type": 3
+      },
+      {
+        "MessageID": "Seesyde Village",
+        "Translate": {
+          "X": 550,
+          "Z": 230,
+          "Y": 0.0
+        },
+        "ShowLevel": 2,
+        "Type": 3
+      },
+      {
+        "MessageID": "Zora River",
+        "Translate": {
+          "X": 580,
+          "Z": 111,
+          "Y": 0.0
+        },
+        "ShowLevel": 2,
+        "Type": 3
+      },
+      {
+        "MessageID": "River Zora Village",
+        "Translate": {
+          "X": 552,
+          "Z": 83,
+          "Y": 0.0
+        },
+        "ShowLevel": 2,
+        "Type": 3
+      },
+      {
+        "MessageID": "Crossflows Plaza",
+        "Translate": {
+          "X": 605,
+          "Z": 180,
+          "Y": 0.0
+        },
+        "ShowLevel": 2,
+        "Type": 3
+      },
+      {
+        "MessageID": "Scrubtown",
+        "Translate": {
+          "X": 621,
+          "Z": 373,
+          "Y": 0.0
+        },
+        "ShowLevel": 2,
+        "Type": 3
+      }
+    ],
+    "HeartPiece": [
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 216.0,
+          "Y": 0.0,
+          "Z": 482.25
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 687.0,
+          "Y": 0.0,
+          "Z": 282.0
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 108.75,
+          "Y": 2.625,
+          "Z": 357.0
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 213.0,
+          "Y": 0.375,
+          "Z": 388.5
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": -14.25,
+          "Y": 3.375,
+          "Z": 471.75
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 350.25,
+          "Y": 117.375,
+          "Z": 20.25
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 455.25,
+          "Y": 91.5,
+          "Z": 45.75
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 421.5,
+          "Y": 85.125,
+          "Z": 72.0
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 330.0,
+          "Y": 7.5,
+          "Z": 175.5
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 2.25,
+          "Y": 11.25,
+          "Z": 204.75
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 225.0,
+          "Y": 12.0,
+          "Z": 186.0
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 37.5,
+          "Y": 11.25,
+          "Z": 261.75
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 235.5,
+          "Y": 7.5,
+          "Z": 307.5
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 569.25,
+          "Y": 33.75,
+          "Z": 44.25
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 611.25,
+          "Y": 17.25,
+          "Z": 144.75
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 324.0,
+          "Y": 12.0,
+          "Z": 361.5
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 44.25,
+          "Y": 78.3,
+          "Z": 131.25
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 77.25,
+          "Y": 72.3,
+          "Z": 107.25
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": -35.25,
+          "Y": 43.05,
+          "Z": 162.75
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 230.25,
+          "Y": 0.0,
+          "Z": 457.35
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 408.75,
+          "Y": 0.0,
+          "Z": 427.35
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 300.75,
+          "Y": 0.0,
+          "Z": 445.35
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 501.75,
+          "Y": 0.0,
+          "Z": 283.35
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 21.75,
+          "Y": 0.0,
+          "Z": 380.85
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 57.75,
+          "Y": 0.0,
+          "Z": 92.85
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 639.75,
+          "Y": 0.0,
+          "Z": 433.35
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 597.75,
+          "Y": 0.0,
+          "Z": 446.85
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 527.25,
+          "Y": 0.0,
+          "Z": 415.35
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 582.75,
+          "Y": 0.0,
+          "Z": 374.95
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 442.5,
+          "Y": 0.0,
+          "Z": 96.6
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 447.75,
+          "Y": 0.0,
+          "Z": 196.35
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": -17.25,
+          "Y": 0.0,
+          "Z": 202.35
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 165.75,
+          "Y": 0.0,
+          "Z": 172.35
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 177.0,
+          "Y": 0.0,
+          "Z": 290.25
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 138.75,
+          "Y": 0.0,
+          "Z": 155.25
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 104.25,
+          "Y": 0.0,
+          "Z": 398.85
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 69.75,
+          "Y": 0.0,
+          "Z": 199.35
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 79.75,
+          "Y": 0.0,
+          "Z": 199.35
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 507.75,
+          "Y": 0.0,
+          "Z": 250.35
+        },
+        "MessageID": "ItemHeartPiece"
+      },
+      {
+        "Icon": "HeartPiece",
+        "Translate": {
+          "X": 296.25,
+          "Y": 0.0,
+          "Z": 238.5
+        },
+        "MessageID": "ItemHeartPiece"
+      }
+    ],
+    "Stamp": [
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": 551.25,
+          "Y": 7.5,
+          "Z": 210.75
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": 693.75,
+          "Y": 7.5,
+          "Z": 273.75
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": 78.75,
+          "Y": 0,
+          "Z": 390.75
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": 146.25,
+          "Y": 2.9999995,
+          "Z": 446.25
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": 446.25,
+          "Y": 138.5,
+          "Z": 27.75
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": 305.25,
+          "Y": 48,
+          "Z": 95.25
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": 399.75,
+          "Y": 13.5,
+          "Z": 99.75
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": 457.5,
+          "Y": 52.5,
+          "Z": 79.5
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": 464.25,
+          "Y": 6,
+          "Z": 378.75
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": 107.25,
+          "Y": 10.5,
+          "Z": 210.75
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": -26.25,
+          "Y": 16.5,
+          "Z": 209.25
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": 176.25,
+          "Y": 7.5,
+          "Z": 309.75
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": 685.5,
+          "Y": 6,
+          "Z": 331.5
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": 527.25,
+          "Y": -0.75,
+          "Z": 435.75
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": 588.75,
+          "Y": 1.5,
+          "Z": 393.75
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": 627.75,
+          "Y": 0.75,
+          "Z": 423.75
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": 429,
+          "Y": 7.5,
+          "Z": 225
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": 519.75,
+          "Y": 27.75,
+          "Z": 74.25
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": 555.75,
+          "Y": 12.75,
+          "Z": 152.25
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": 36.75,
+          "Y": 87,
+          "Z": 92.25
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": 8.25,
+          "Y": 69,
+          "Z": 125.25
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": 143.25,
+          "Y": 36,
+          "Z": 120.75
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": 98.25,
+          "Y": 58.5,
+          "Z": 143.25
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": 3,
+          "Y": 12,
+          "Z": 306
+        },
+        "MessageID": "StampTable"
+      },
+      {
+        "Icon": "Stamp",
+        "Translate": {
+          "X": -26.249998,
+          "Y": 7.5,
+          "Z": 413.25
+        },
+        "MessageID": "StampTable"
+      }
+    ],
+    "Warp": [
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 528.75,
+          "Y": 7.5,
+          "Z": 210.75
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 635.25,
+          "Y": 7.5,
+          "Z": 267.75
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 48.75,
+          "Y": 0,
+          "Z": 357.75
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 117.75,
+          "Y": 0,
+          "Z": 411.75
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 221.25,
+          "Y": 1.5,
+          "Z": 410.25
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 95.25,
+          "Y": 0,
+          "Z": 444.75
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 434.25,
+          "Y": 3,
+          "Z": 407.25
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 288.75,
+          "Y": 45,
+          "Z": 50.25
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 393.75,
+          "Y": 123.75,
+          "Z": 45.75
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 416.25,
+          "Y": 152.25,
+          "Z": 6.75
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 443.25,
+          "Y": 82.125,
+          "Z": 45.75
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 362.25,
+          "Y": 49.5,
+          "Z": 60.75
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 429.75,
+          "Y": 45,
+          "Z": 107.25
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 416.25,
+          "Y": 6,
+          "Z": 344.25
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 92.25,
+          "Y": 10.5,
+          "Z": 203.25
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 188.25,
+          "Y": 7.5,
+          "Z": 224.25
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 342.75,
+          "Y": 10.5,
+          "Z": 161.25
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 12.75,
+          "Y": 9,
+          "Z": 263.25
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 177.75,
+          "Y": 6,
+          "Z": 315.75
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 146.25,
+          "Y": 7.5,
+          "Z": 260.25
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 320.25,
+          "Y": 7.5,
+          "Z": 270.75
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 266.25,
+          "Y": 6,
+          "Z": 348.75
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 468.75,
+          "Y": 15.75,
+          "Z": 141.75
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 493.5,
+          "Y": 4.5,
+          "Z": 329.25
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 634.5,
+          "Y": 3.75,
+          "Z": 356.25
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 533.25006,
+          "Y": -6.75,
+          "Z": 463.5
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 657.75,
+          "Y": -6.75,
+          "Z": 468.75
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 210.75,
+          "Y": 10.5,
+          "Z": 87.75
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 260.25,
+          "Y": 10.5,
+          "Z": 134.25
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 422.25,
+          "Y": 7.5,
+          "Z": 246.75
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 553.5,
+          "Y": 18,
+          "Z": 95.25
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 620.25,
+          "Y": 13.5,
+          "Z": 152.25
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 612.75,
+          "Y": 7.5,
+          "Z": 200.25
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 326.25,
+          "Y": 0,
+          "Z": 449.25
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 333.75,
+          "Y": 2.25,
+          "Z": 404.25
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 8.25,
+          "Y": 72,
+          "Z": 110.25
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 77.25,
+          "Y": 58.5,
+          "Z": 143.25
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 50.25,
+          "Y": 72,
+          "Z": 125.25
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": -23.25,
+          "Y": 33,
+          "Z": 173.25
+        },
+        "MessageID": "WarpOpener"
+      },
+      {
+        "Icon": "Warp",
+        "Translate": {
+          "X": 14.25,
+          "Y": 0,
+          "Z": 431.25
+        },
+        "MessageID": "WarpOpener"
+      }
+    ],
+    "MightCrystal": [
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 553.5,
+          "Y": 4.5,
+          "Z": 239.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 581.25,
+          "Y": 0.0,
+          "Z": 270.0
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 647.25,
+          "Y": 4.5,
+          "Z": 234.0
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 132.75,
+          "Y": 6.0,
+          "Z": 401.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 104.25,
+          "Y": 0.0,
+          "Z": 397.5
+        },
+        "MessageID": 3
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 114.75,
+          "Y": 0.0,
+          "Z": 452.25
+        },
+        "MessageID": 2
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 147.0,
+          "Y": 3.0,
+          "Z": 477.0
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 327.75,
+          "Y": 52.5,
+          "Z": 32.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 368.25,
+          "Y": 117.375,
+          "Z": 43.5
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 378.0,
+          "Y": 82.125,
+          "Z": 68.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 333.75,
+          "Y": 46.5,
+          "Z": 114.75
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 449.25,
+          "Y": 52.5,
+          "Z": 86.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 315.0,
+          "Y": 15.75,
+          "Z": 194.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 301.5,
+          "Y": 7.5,
+          "Z": 216.0
+        },
+        "MessageID": 2
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 272.25,
+          "Y": 7.5,
+          "Z": 215.25
+        },
+        "MessageID": 3
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 396.75,
+          "Y": -3.0,
+          "Z": 371.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 75.75,
+          "Y": 15.0,
+          "Z": 179.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 228.75,
+          "Y": 7.5,
+          "Z": 204.75
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 204.75,
+          "Y": 7.5,
+          "Z": 221.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": -34.5,
+          "Y": 21.0,
+          "Z": 222.0
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 65.25,
+          "Y": 11.25,
+          "Z": 230.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 42.75,
+          "Y": 7.5,
+          "Z": 296.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 72.75,
+          "Y": 8.25,
+          "Z": 284.25
+        },
+        "MessageID": 3
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 140.25,
+          "Y": 8.25,
+          "Z": 323.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 227.25,
+          "Y": 7.5,
+          "Z": 248.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 227.25,
+          "Y": 6.0,
+          "Z": 296.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 273.75,
+          "Y": 7.5,
+          "Z": 279.75
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 294.75,
+          "Y": 7.5,
+          "Z": 303.75
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 413.25,
+          "Y": 7.5,
+          "Z": 284.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 366.75,
+          "Y": 7.5,
+          "Z": 278.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 477.75,
+          "Y": 18.75,
+          "Z": 123.75
+        },
+        "MessageID": 3
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 473.25,
+          "Y": 18.0,
+          "Z": 146.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 453.75,
+          "Y": 21.75,
+          "Z": 125.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 458.25,
+          "Y": 15.0,
+          "Z": 458.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 672.0,
+          "Y": 8.25,
+          "Z": 336.0
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 591.75,
+          "Y": 5.25,
+          "Z": 373.5
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 503.25,
+          "Y": -0.75,
+          "Z": 423.75
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 617.25,
+          "Y": 0.75,
+          "Z": 444.75
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 147.75,
+          "Y": 25.5,
+          "Z": 105.75
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 227.25,
+          "Y": 15.0,
+          "Z": 71.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 433.5,
+          "Y": 10.5,
+          "Z": 255.0
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 462.75,
+          "Y": 19.5,
+          "Z": 212.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 522.75,
+          "Y": 15.75,
+          "Z": 181.5
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 293.25,
+          "Y": 0.0,
+          "Z": 354.75
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": -0.75,
+          "Y": 3.75,
+          "Z": 342.75
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 75.75,
+          "Y": 12.0,
+          "Z": 341.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 272.25,
+          "Y": 10.5,
+          "Z": 402.75
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 229.5,
+          "Y": 6.75,
+          "Z": 391.5
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 73.5,
+          "Y": 0.0,
+          "Z": 357.75
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": -11.25,
+          "Y": 0.0,
+          "Z": 92.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 411.75,
+          "Y": 0.0,
+          "Z": 340.35
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 129.75,
+          "Y": 0.0,
+          "Z": 135.75
+        },
+        "MessageID": 2
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": -23.25,
+          "Y": 0.0,
+          "Z": 176.25
+        },
+        "MessageID": 3
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 595.5,
+          "Y": 0.0,
+          "Z": 122.25
+        },
+        "MessageID": 3
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 528.75,
+          "Y": 0.0,
+          "Z": 120.75
+        },
+        "MessageID": 3
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 177.0,
+          "Y": 0.0,
+          "Z": 290.25
+        },
+        "MessageID": 3
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 120.375,
+          "Y": 0.0,
+          "Z": 150.75
+        },
+        "MessageID": 2
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 96.0,
+          "Y": 0.0,
+          "Z": 135.375
+        },
+        "MessageID": 2
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 296.25,
+          "Y": 0.0,
+          "Z": 238.5
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 284.25,
+          "Y": 0.0,
+          "Z": 453.75
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 531.75,
+          "Y": 0.0,
+          "Z": 218.25
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 592.5,
+          "Y": 0.0,
+          "Z": 381.75
+        },
+        "MessageID": 1
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": -9.75,
+          "Y": 0.0,
+          "Z": 407.272
+        },
+        "MessageID": 2
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 440.25,
+          "Y": 0.0,
+          "Z": 383.85
+        },
+        "MessageID": 5
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 603.75,
+          "Y": 0.0,
+          "Z": 151.35
+        },
+        "MessageID": 5
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 73.5,
+          "Y": 0.0,
+          "Z": 450.6
+        },
+        "MessageID": 5
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 312.0,
+          "Y": 0.0,
+          "Z": 205.725
+        },
+        "MessageID": 5
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 22.0,
+          "Y": 0.0,
+          "Z": 88.5
+        },
+        "MessageID": 5
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 628.5,
+          "Y": 0.0,
+          "Z": 334.35
+        },
+        "MessageID": 5
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 428.625,
+          "Y": 0.0,
+          "Z": 0.0
+        },
+        "MessageID": 5
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 676.875,
+          "Y": 0.0,
+          "Z": 468.375
+        },
+        "MessageID": 2
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 516.75,
+          "Y": 0.0,
+          "Z": 464.0
+        },
+        "MessageID": 2
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 384.75,
+          "Y": 0.0,
+          "Z": 356.925
+        },
+        "MessageID": 2
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 237.75,
+          "Y": 0.0,
+          "Z": 345.25
+        },
+        "MessageID": 2
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 246.5,
+          "Y": 0.0,
+          "Z": 155.75
+        },
+        "MessageID": 2
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 305.25,
+          "Y": 0.0,
+          "Z": 144.94
+        },
+        "MessageID": 2
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 635.25,
+          "Y": 0.0,
+          "Z": 75.0
+        },
+        "MessageID": 2
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": -12.0,
+          "Y": 0.0,
+          "Z": 299.78
+        },
+        "MessageID": 2
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 395.25,
+          "Y": 0.0,
+          "Z": 458.875
+        },
+        "MessageID": 2
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 446.25,
+          "Y": 0.0,
+          "Z": 31.5
+        },
+        "MessageID": 2
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 599.25,
+          "Y": 0.0,
+          "Z": 69.0
+        },
+        "MessageID": 2
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 158.25,
+          "Y": 0.0,
+          "Z": 372.0
+        },
+        "MessageID": 2
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 90.75,
+          "Y": 0.0,
+          "Z": 136.35
+        },
+        "MessageID": 2
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 452.25,
+          "Y": 0.0,
+          "Z": 89.85
+        },
+        "MessageID": 2
+      },
+      {
+        "Icon": "MightCrystal",
+        "Translate": {
+          "X": 13.5,
+          "Y": 0.0,
+          "Z": 158.062
+        },
+        "MessageID": 2
+      }
+    ],
     "Town": [],
-    "Shop": [],
-    "SubArea": [],
-    "Rift": [],
-    "Minigame": [],
-    "Smoothie": []
+    "Shop": [
+      {
+        "Icon": "Shop",
+        "Translate": {
+          "X": 326.25,
+          "Y": 8.25,
+          "Z": 237.0
+        },
+        "MessageID": "glossary/Location:HyruleHouse002"
+      },
+      {
+        "Icon": "Shop",
+        "Translate": {
+          "X": 300.75,
+          "Y": 0.75,
+          "Z": 443.25
+        },
+        "MessageID": "glossary/Location:VillageHouse003"
+      },
+      {
+        "Icon": "Shop",
+        "Translate": {
+          "X": 562.5,
+          "Y": 8.25,
+          "Z": 222.75
+        },
+        "MessageID": "glossary/Location:SeasideHouse004"
+      },
+      {
+        "Icon": "Shop",
+        "Translate": {
+          "X": 542.25,
+          "Y": 19.5,
+          "Z": 87.75
+        },
+        "MessageID": "glossary/Location:ZoraRiverHouse005"
+      },
+      {
+        "Icon": "Shop",
+        "Translate": {
+          "X": 16.5,
+          "Y": 3.0,
+          "Z": 411.75
+        },
+        "MessageID": "glossary/Location:GerudoHouse004"
+      },
+      {
+        "Icon": "Shop",
+        "Translate": {
+          "X": 110.25,
+          "Y": 11.25,
+          "Z": 201.75
+        },
+        "MessageID": "glossary/Location:KakarikoHouse004"
+      }
+    ],
+    "SubArea": [
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 182.25,
+          "Y": 1.125,
+          "Z": 444.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 230.25,
+          "Y": 6,
+          "Z": 455.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 544.5,
+          "Y": 8.25,
+          "Z": 225.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 558,
+          "Y": 8.25,
+          "Z": 230.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 562.5,
+          "Y": 8.25,
+          "Z": 222.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 507.75,
+          "Y": 8.25,
+          "Z": 248.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 501.75,
+          "Y": 9,
+          "Z": 281.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 549,
+          "Y": 8.25,
+          "Z": 233.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 630.75,
+          "Y": 3,
+          "Z": 270.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 677.25,
+          "Y": 9.75,
+          "Z": 246.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 687.75,
+          "Y": 4.5,
+          "Z": 248.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 72.75,
+          "Y": 1.5,
+          "Z": 359.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 104.25,
+          "Y": 0.75,
+          "Z": 396.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 201.75,
+          "Y": 6.75,
+          "Z": 366.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 114.75,
+          "Y": 0.75,
+          "Z": 451.5
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 59.25,
+          "Y": 0.75,
+          "Z": 445.5
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 73.5,
+          "Y": -2.25,
+          "Z": 448.5
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 347.25,
+          "Y": 0.75,
+          "Z": 399.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 408.75,
+          "Y": 0.75,
+          "Z": 425.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 435.75,
+          "Y": 0.75,
+          "Z": 417.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 422.25,
+          "Y": 8.25,
+          "Z": 393.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 440.25,
+          "Y": 9.75,
+          "Z": 381.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 377.25,
+          "Y": 0.75,
+          "Z": 458.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 325.5,
+          "Y": 45.75,
+          "Z": 33.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 404.25,
+          "Y": 103.125,
+          "Z": 41.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 411.75,
+          "Y": 85.125,
+          "Z": 35.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 447.75,
+          "Y": 82.875,
+          "Z": 42.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 416.25,
+          "Y": 132.375,
+          "Z": 18.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 414.75,
+          "Y": 153,
+          "Z": 5.2500005
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 293.25,
+          "Y": 12.75,
+          "Z": 63.749996
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 297.75,
+          "Y": 45.75,
+          "Z": 54.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 388.5,
+          "Y": 82.875,
+          "Z": 59.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 452.25,
+          "Y": 47.625,
+          "Z": 87.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 442.5,
+          "Y": 48,
+          "Z": 94.5
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 468.75,
+          "Y": 57.375,
+          "Z": 57.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 458.25,
+          "Y": 54,
+          "Z": 69.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 312,
+          "Y": 9.375,
+          "Z": 203.625
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 326.25,
+          "Y": 8.25,
+          "Z": 237
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 329.25,
+          "Y": 8.25,
+          "Z": 237
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 297,
+          "Y": 8.25,
+          "Z": 221.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 321.75,
+          "Y": 8.25,
+          "Z": 226.5
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 302.25,
+          "Y": 8.25,
+          "Z": 227.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 294.75,
+          "Y": 8.25,
+          "Z": 236.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 303.75,
+          "Y": 8.25,
+          "Z": 239.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 321.75,
+          "Y": 8.25,
+          "Z": 238.5
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 326.25,
+          "Y": 8.25,
+          "Z": 227.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 292.5,
+          "Y": 7.5,
+          "Z": 228
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 303.75,
+          "Y": 7.5,
+          "Z": 216.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 411.75,
+          "Y": 6.75,
+          "Z": 338.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 363.75,
+          "Y": 9.75,
+          "Z": 368.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": -17.25,
+          "Y": 12.75,
+          "Z": 200.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 87.75,
+          "Y": 12.75,
+          "Z": 186.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 104.25,
+          "Y": 12.75,
+          "Z": 183.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 111.75,
+          "Y": 12.75,
+          "Z": 188.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 81.75,
+          "Y": 12.75,
+          "Z": 201.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 110.25,
+          "Y": 11.25,
+          "Z": 201.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 69.75,
+          "Y": 12.75,
+          "Z": 197.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 97.5,
+          "Y": 12,
+          "Z": 193.5
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 165.75,
+          "Y": 8.25,
+          "Z": 170.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 228.75,
+          "Y": 7.55,
+          "Z": 204.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 305.25,
+          "Y": 11.25,
+          "Z": 140.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 343.5,
+          "Y": 13.55,
+          "Z": 134.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 394.5,
+          "Y": 11.25,
+          "Z": 129.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 72.75,
+          "Y": 8.25,
+          "Z": 284.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 168.75,
+          "Y": 8.25,
+          "Z": 289.5
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 465.75,
+          "Y": 16.5,
+          "Z": 131.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 477.75,
+          "Y": 19.5,
+          "Z": 123.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 628.5,
+          "Y": 6,
+          "Z": 332.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 582.75,
+          "Y": 9.75,
+          "Z": 372.85
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 591.75,
+          "Y": 5.25,
+          "Z": 373.6
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 644.25,
+          "Y": 4.5,
+          "Z": 364.875
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 527.25,
+          "Y": 0,
+          "Z": 413.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 531.75,
+          "Y": 1.125,
+          "Z": 406.5
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 597.75,
+          "Y": 0,
+          "Z": 444.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 683.25,
+          "Y": 3,
+          "Z": 371.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 639.75,
+          "Y": -3,
+          "Z": 431.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 615.75,
+          "Y": -2.9999995,
+          "Z": 456.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 198.75,
+          "Y": 12,
+          "Z": 52.5
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 242.25,
+          "Y": 10.5,
+          "Z": 149.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 447.75,
+          "Y": 20.25,
+          "Z": 194.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 537.75,
+          "Y": 24,
+          "Z": 68.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 534.75,
+          "Y": 19.5,
+          "Z": 89.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 563.25,
+          "Y": 22.5,
+          "Z": 78.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 542.25,
+          "Y": 19.5,
+          "Z": 87.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 557.25,
+          "Y": 22.5,
+          "Z": 77.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 575.25,
+          "Y": 18.75,
+          "Z": 93.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 573.75,
+          "Y": 14.25,
+          "Z": 128.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 603.75,
+          "Y": 14.25,
+          "Z": 149.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 255.75,
+          "Y": 3.75,
+          "Z": 447.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 293.25,
+          "Y": 0.75,
+          "Z": 455.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 281.25,
+          "Y": 0.75,
+          "Z": 452.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 300.75,
+          "Y": 0.75,
+          "Z": 443.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 284.25,
+          "Y": 1.5,
+          "Z": 440.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 294,
+          "Y": -0.75,
+          "Z": 444
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 290.25,
+          "Y": 5.25,
+          "Z": 335.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 4.5,
+          "Y": 73.5,
+          "Z": 107.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 57.75,
+          "Y": 78.75,
+          "Z": 90.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 63.75,
+          "Y": 72.75,
+          "Z": 113.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 90.75,
+          "Y": 62.625,
+          "Z": 134.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 30.75,
+          "Y": 41.25,
+          "Z": 156.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 48.75,
+          "Y": 41.25,
+          "Z": 156.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": -31.5,
+          "Y": 27.75,
+          "Z": 179.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 26.25,
+          "Y": 29.25,
+          "Z": 168.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 132.75,
+          "Y": 22.5,
+          "Z": 147.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 47.25,
+          "Y": 24.75,
+          "Z": 162.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": -11.25,
+          "Y": 9.75,
+          "Z": 291.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 53.25,
+          "Y": 1.5,
+          "Z": 323.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 80.25,
+          "Y": 6,
+          "Z": 353.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": -6,
+          "Y": 3,
+          "Z": 419.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": -2.25,
+          "Y": 3.75,
+          "Z": 410.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 6.75,
+          "Y": 3,
+          "Z": 411.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 16.5,
+          "Y": 3,
+          "Z": 411.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 22.5,
+          "Y": 3,
+          "Z": 422.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 15.75,
+          "Y": 6,
+          "Z": 408.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": -8.25,
+          "Y": 8.25,
+          "Z": 395.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 9.75,
+          "Y": 5.625,
+          "Z": 395.25
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 0,
+          "Y": 4.5,
+          "Z": 393
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 21.75,
+          "Y": 10.5,
+          "Z": 378.75
+        },
+        "MessageID": "SensorLevelOpen"
+      },
+      {
+        "Icon": "SubArea",
+        "Translate": {
+          "X": 15,
+          "Y": 8.25,
+          "Z": 390
+        },
+        "MessageID": "SensorLevelOpen"
+      }
+    ],
+    "Rift": [
+      {
+        "Icon": "Generic",
+        "Translate": {
+          "X": 395.25,
+          "Y": 0,
+          "Z": 458.875
+        },
+        "MessageID": "BoundaryGate"
+      },
+      {
+        "Icon": "Generic",
+        "Translate": {
+          "X": 446.25,
+          "Y": 138.375,
+          "Z": 31.5
+        },
+        "MessageID": "BoundaryGate"
+      },
+      {
+        "Icon": "Generic",
+        "Translate": {
+          "X": 428.625,
+          "Y": 156.75,
+          "Z": 0
+        },
+        "MessageID": "BoundaryGate"
+      },
+      {
+        "Icon": "Generic",
+        "Translate": {
+          "X": 384.75,
+          "Y": 6,
+          "Z": 356.925
+        },
+        "MessageID": "BoundaryGate"
+      },
+      {
+        "Icon": "Generic",
+        "Translate": {
+          "X": 305.25,
+          "Y": 10.5,
+          "Z": 144.75
+        },
+        "MessageID": "BoundaryGate"
+      },
+      {
+        "Icon": "Generic",
+        "Translate": {
+          "X": 635.25,
+          "Y": 31.5,
+          "Z": 75
+        },
+        "MessageID": "BoundaryGate"
+      },
+      {
+        "Icon": "Generic",
+        "Translate": {
+          "X": 13.5,
+          "Y": 51.75,
+          "Z": 158.0625
+        },
+        "MessageID": "BoundaryGate"
+      },
+      {
+        "Icon": "Generic",
+        "Translate": {
+          "X": -11.999998,
+          "Y": 9,
+          "Z": 299.78
+        },
+        "MessageID": "BoundaryGate"
+      },
+      {
+        "Icon": "Generic",
+        "Translate": {
+          "X": 158.25,
+          "Y": 3,
+          "Z": 372
+        },
+        "MessageID": "BoundaryGate"
+      },
+      {
+        "Icon": "Generic",
+        "Translate": {
+          "X": 438.75,
+          "Y": 6,
+          "Z": 394.5
+        },
+        "MessageID": "BoundaryGate"
+      },
+      {
+        "Icon": "Generic",
+        "Translate": {
+          "X": 246.75,
+          "Y": 10.5,
+          "Z": 156.875
+        },
+        "MessageID": "BoundaryGate"
+      },
+      {
+        "Icon": "Generic",
+        "Translate": {
+          "X": 237.75,
+          "Y": 6,
+          "Z": 342.675
+        },
+        "MessageID": "BoundaryGate"
+      },
+      {
+        "Icon": "Generic",
+        "Translate": {
+          "X": 516.958,
+          "Y": -7.5,
+          "Z": 464.662
+        },
+        "MessageID": "BoundaryGate"
+      },
+      {
+        "Icon": "Generic",
+        "Translate": {
+          "X": 676.875,
+          "Y": -5.25,
+          "Z": 468.375
+        },
+        "MessageID": "BoundaryGate"
+      },
+      {
+        "Icon": "Generic",
+        "Translate": {
+          "X": 599.25,
+          "Y": 27.375,
+          "Z": 69
+        },
+        "MessageID": "BoundaryGate"
+      }
+    ],
+    "Minigame": [
+      {
+        "Icon": "Minigame",
+        "Translate": {
+          "X": 273.75,
+          "Y": 7.5,
+          "Z": 215.25
+        },
+        "MessageID": "HylianM032"
+      },
+      {
+        "Icon": "Minigame",
+        "Translate": {
+          "X": 138.75,
+          "Y": 13.5,
+          "Z": 155.25
+        },
+        "MessageID": "HylianM032"
+      },
+      {
+        "Icon": "Minigame",
+        "Translate": {
+          "X": 306.75,
+          "Y": 10.5,
+          "Z": 151.875
+        },
+        "MessageID": "HylianM032"
+      },
+      {
+        "Icon": "Minigame",
+        "Translate": {
+          "X": -3.75,
+          "Y": 12,
+          "Z": 259.5
+        },
+        "MessageID": "HylianM032"
+      },
+      {
+        "Icon": "Minigame",
+        "Translate": {
+          "X": 631.5,
+          "Y": 18,
+          "Z": 160.875
+        },
+        "MessageID": "HylianM032"
+      }
+    ],
+    "Smoothie": [
+      {
+        "Icon": "Smoothie",
+        "Translate": {
+          "X": 627.75,
+          "Y": 7.5,
+          "Z": 207.75
+        },
+        "MessageID": "DekuMerchantBranch02"
+      },
+      {
+        "Icon": "Smoothie",
+        "Translate": {
+          "X": 95.25,
+          "Y": 0,
+          "Z": 404.25
+        },
+        "MessageID": "DekuMerchantBranch01"
+      },
+      {
+        "Icon": "Smoothie",
+        "Translate": {
+          "X": 365.25,
+          "Y": 49.875,
+          "Z": 65.25
+        },
+        "MessageID": "DekuMerchantBranch04"
+      },
+      {
+        "Icon": "Smoothie",
+        "Translate": {
+          "X": 84.75,
+          "Y": 9,
+          "Z": 219.75
+        },
+        "MessageID": "DekuMerchantBranch00"
+      },
+      {
+        "Icon": "Smoothie",
+        "Translate": {
+          "X": 282,
+          "Y": 10.5,
+          "Z": 156.75
+        },
+        "MessageID": "DekuMerchantBranch00"
+      },
+      {
+        "Icon": "Smoothie",
+        "Translate": {
+          "X": 643.875,
+          "Y": 3.75,
+          "Z": 366.75
+        },
+        "MessageID": "DekuMerchant"
+      },
+      {
+        "Icon": "Smoothie",
+        "Translate": {
+          "X": 69,
+          "Y": 60.75,
+          "Z": 140.25
+        },
+        "MessageID": "DekuMerchantBranch03"
+      }
+    ]
   }
 }

@@ -1,4 +1,4 @@
-import { GAME_FILES } from '@/util/map';
+import { EOW_FILES, GAME_FILES } from '@/util/map';
 
 type File = { [label: string]: string };
 
@@ -26,7 +26,7 @@ export class MsgMgr {
         this.files.set(file, Object.freeze(d));
       }));
     }
-    fileLoadPromises.push(fetch(`${GAME_FILES}/names.json`).then(r => r.json()).then((d) => {
+    fileLoadPromises.push(fetch(`${EOW_FILES}/names.json`).then(r => r.json()).then((d) => {
       this.names = d;
     }));
     await Promise.all(fileLoadPromises);
