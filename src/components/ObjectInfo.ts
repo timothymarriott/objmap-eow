@@ -4,8 +4,9 @@ import Component, { mixins } from 'vue-class-component';
 
 import MixinUtil from '@/components/MixinUtil';
 import { MsgMgr } from '@/services/MsgMgr';
-import { ObjectData, ObjectMinData, PlacementLink } from '@/services/MapMgr';
+import { ObjectData, ObjectMinData, PlacementLink, RADAR_URL } from '@/services/MapMgr';
 import { Settings } from '@/util/settings';
+import { EOW_FILES } from '@/util/map';
 
 @Component
 export default class ObjectInfo extends mixins(MixinUtil) {
@@ -57,6 +58,10 @@ export default class ObjectInfo extends mixins(MixinUtil) {
 
   private name(rankUp: boolean) {
     return this.getName(rankUp ? this.getRankedUpActorNameForObj(this.data) : this.data.name);
+  }
+
+  getIcon() {
+    return RADAR_URL + "/icon/" + this.data.objid
   }
 
 }

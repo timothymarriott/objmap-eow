@@ -1,6 +1,11 @@
 <template>
   <div :class="className + (isStatic ? ' static' : '')">
+    <img :src="getIcon()" style="width: 230px; height: 230px;" onerror="this.style.display='none'" onload="this.style.display='block'">
     <section class="search-result-name">{{name(true)}}</section>
+    <section class="search-result-actor" v-if="name(true) !== data.actor">
+      <i class="fas fa-hashtag fa-fw"></i>
+      {{data.actor}}
+    </section>
     <section class="search-result-location">
       <i class="fa fa-map-marker-alt fa-fw"></i>
       {{getMapNameForObj(data)}}

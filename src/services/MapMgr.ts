@@ -1,7 +1,10 @@
 
-import { EOW_FILES, GAME_FILES } from '@/util/map';
+import { MARKER_COMPONENTS } from '@/components/AppMap';
+import { MAPS } from '@/components/AppMapSettings';
+import { EOW_FILES } from '@/util/map';
+import { Settings } from '@/util/settings';
 
-const RADAR_URL = process.env.VUE_APP_RADAR_URL;
+export const RADAR_URL: string = process.env.VUE_APP_RADAR_URL;
 
 export type Vec3 = [number, number, number];
 
@@ -67,23 +70,38 @@ export class MapMgr {
     return this.instance;
   }
 
-  private infoMainField: any;
+  private infos: Map<string, any> = new Map();
 
   async init() {
-    await Promise.all([
-      fetch(`${EOW_FILES}/map_summary/MainField/static.json`).then(r => r.json())
-        .then((d) => {
-          this.infoMainField = Object.freeze(d);
-        }),
-    ]);
+    await Promise.all(MAPS.map(async m => {
+      const res = await fetch(`${EOW_FILES}/map_summary/${m.text}/static.json`);
+      if (res.headers.has("Content-Type")){
+        if (res.headers.get("Content-Type")!.startsWith("text/html")){
+          return;
+        }
+      }
+
+      try {
+        const d = await res.json();
+        this.infos.set(m.text, Object.freeze(d));
+      // eslint-disable-next-line no-empty
+      } catch {
+      }
+
+
+    }))
   }
 
-  fetchAreaMap(name: string): Promise<{ [data: number]: Array<GeoJSON.Polygon | GeoJSON.MultiPolygon> }> {
-    return fetch(`${GAME_FILES}/ecosystem/${name}.json`).then(parse);
-  }
+  getInfo() {
+    if (!this.infos.has(Settings.getInstance().mapName)) {
+      let data: any = {};
 
-  getInfoMainField() {
-    return this.infoMainField;
+      for (const key of Object.keys(MARKER_COMPONENTS)){
+        data[key] = []
+      }
+      return {markers: data};
+    }
+    return this.infos.get(Settings.getInstance().mapName);
   }
 
   getObjByObjId(objid: number): Promise<ObjectData | null> {
@@ -93,24 +111,8 @@ export class MapMgr {
     return fetch(`${RADAR_URL}/obj/${mapName}/${hashId}`).then(parse);
   }
 
-  getObjGenGroup(mapType: string, mapName: string, hashId: number): Promise<ObjectData[]> {
-    return fetch(`${RADAR_URL}/obj/${mapType}/${mapName}/${hashId}/gen_group`).then(parse);
-  }
-
-  getObjShopData() {
-    return fetch(`${GAME_FILES}/ecosystem/beedle_shop_data.json`).then(parse);
-  }
-
-  getObjDropTables(unitConfigName: string, tableName: string) {
-    return fetch(`${RADAR_URL}/drop/${unitConfigName}/${tableName}`).then(parse);
-  }
-
-  getObjRails(hashId: number): Promise<any> {
-    return fetch(`${RADAR_URL}/rail/${hashId}`).then(parse);
-  }
-
-  getObjs(mapType: string, mapName: string, query: string, withMapNames = false, limit = -1): Promise<ObjectMinData[]> {
-    let url = new URL(`${RADAR_URL}/objs/${mapType}/${mapName}`);
+  getObjs(mapName: string, query: string, withMapNames = false, limit = -1): Promise<ObjectMinData[]> {
+    let url = new URL(`${RADAR_URL}/objs/${mapName}`);
     url.search = new URLSearchParams({
       q: query,
       withMapNames: withMapNames.toString(),
@@ -119,8 +121,8 @@ export class MapMgr {
     return fetch(url.toString()).then(parse);
   }
 
-  getObjids(mapType: string, mapName: string, query: string): Promise<number[]> {
-    let url = new URL(`${RADAR_URL}/objids/${mapType}/${mapName}`);
+  getObjids(mapName: string, query: string): Promise<number[]> {
+    let url = new URL(`${RADAR_URL}/objids/${mapName}`);
     url.search = new URLSearchParams({
       q: query,
     }).toString();

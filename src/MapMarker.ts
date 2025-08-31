@@ -179,41 +179,9 @@ export class MapMarkerWarp extends MapMarkerGenericLocationMarker {
 }
 
 
-export class MapMarkerMightCrystal extends MapMarker {
-  public readonly lm: map.LocationMarker;
-
-  getMarker() { return this.marker; }
-
-  protected setTitle(title: string) {
-    this.title = title;
-    this.marker.options.title = title;
-  }
-
-  protected marker: L.Marker;
-
-  constructor(mb: MapBase, l: MapMarkerData, showLabel: boolean, zIndexOffset?: number) {
-    const lm = new map.LocationMarker(l);
-    const icon = MapIcons.MIGHT_CRYSTAL;
-
-    super(mb);
-    this.title = `Might Crystal x${l.MessageID}`;
-    this.marker = L.marker(this.mb.fromXYZ(lm.getXYZ()), Object.assign({
-      icon,
-      zIndexOffset,
-    }, {
-      title: `Might Crystal x${l.MessageID}`,
-      contextmenu: true,
-    }));
-    super.commonInit();
-
-    if (showLabel) {
-      this.marker.bindTooltip(`Might Crystal x${l.MessageID}`, {
-        permanent: true,
-        direction: 'center',
-        className: `map-marker type-${lm.getIcon()}`,
-      });
-    }
-    this.lm = lm;
+export class MapMarkerMightCrystal extends MapMarkerGenericLocationMarker {
+  constructor(mb: MapBase, l: MapMarkerData) {
+    super(mb, l, false);
   }
 }
 
@@ -272,6 +240,7 @@ function hashString(s: string) {
 }
 
 export const enum SearchResultUpdateMode {
+  None = 0,
   UpdateStyle = 1 << 0,
   UpdateVisibility = 1 << 1,
   UpdateTitle = 1 << 2,
@@ -305,25 +274,22 @@ export class MapMarkerObj extends MapMarkerCanvasImpl {
       return;
 
     let areaMarker: L.Path;
-    // Super rough approximation. This could be improved by actually projecting the 3D shape...
-    // A lot of shapes do not use any rotate feature though,
-    // and for those this naïve approach should suffice.
 
     const southWest = L.latLng(z + scale.max_z, x + scale.max_x);
     const northEast = L.latLng(z + scale.min_z, x + scale.min_x);
-    console.log(southWest)
-    console.log(northEast)
     areaMarker = L.rectangle(L.latLngBounds(southWest, northEast), {
       // @ts-ignore
       transform: true,
       color: ui.genColor(1000, hashString(this.obj.name) % 1000)
     }).addTo(this.mb.m);
 
+    areaMarker.bindTooltip(this.title, { pane: 'front2' });
+
+
 
     areaMarker.bringToBack();
     this.areaMarker = areaMarker;
   }
-
 
   updateTitle() {
     const actor = this.obj.name;

@@ -6,7 +6,6 @@
     <ObjectInfo :obj="minObj" :key="minObj.objid" className="obj-main-info" withPermalink />
 
     <section v-if="obj" class="mt-2">
-      <section>Actor: {{obj.data.UnitConfigName}}</section>
       <section>Position: {{obj.translate.x.toFixed(2)}}, {{obj.translate.y.toFixed(2)}}, {{obj.translate.z.toFixed(2)}}</section>
       <!-- <section v-if="obj.data.Scale != null">Scale: {{arrayOrNumToStr(obj.data.Scale, 2)}}</section> -->
       <!-- <section v-if="obj.data.Rotate != null">Rotate: {{arrayOrNumToStr(obj.data.Rotate, 5)}}</section>
@@ -19,13 +18,15 @@
         <b-btn v-show="staticData.persistentAreaMarkers.length" size="sm" block variant="dark" @click="forgetPersistentAreaMarkers()">Hide area representation</b-btn>
       </section>
 
+
+
       <section v-if="obj.params">
         <hr>
         <h4 class="subsection-heading">Parameters</h4>
         <pre class="obj-params">{{JSON.stringify(obj.params, undefined, 2)}}</pre>
       </section>
 
-      <section v-if="obj.conditions.length > 0">
+      <section v-if="obj.conditions != undefined ? obj.conditions.length > 0 : false">
         <hr>
         <h4 class="subsection-heading">Conditions</h4>
         <pre class="obj-conditions">{{JSON.stringify(obj.conditions, undefined, 2)}}</pre>

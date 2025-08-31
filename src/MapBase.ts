@@ -15,23 +15,18 @@ import { MapMgr } from '@/services/MapMgr';
 export const SHOW_ALL_OBJS_FOR_MAP_UNIT_EVENT = 'objmap::SHOW_ALL_OBJS_FOR_MAP_UNIT';
 export const MARKER_SELECTED_EVENT = 'objmap::markerSelected';
 
+const MAP_IMAGES: Map<string, L.LatLngBounds> = new Map([
+  ["Field", new L.LatLngBounds([[-36, -50], [513.4, 714.0]])]
+])
+
 export class MapBase {
   m!: L.Map;
   center: Point = [0, 0, 0];
   zoom: number = map.DEFAULT_ZOOM;
   private zoomChangeCbs: Array<(zoom: number) => void> = [];
-  baseImage!: L.Layer;
+  mapImages: Map<string, L.Layer> = new Map();
   refGrid: Array<L.LayerGroup> = [];
   refGridOn: boolean = false;
-
-  showBaseMap(show: boolean) {
-    if (show) {
-      this.m.addLayer(this.baseImage);
-    } else {
-      this.m.removeLayer(this.baseImage);
-    }
-  }
-
 
   toXYZ(latlng: L.LatLng): Point {
     return [latlng.lng, 0, latlng.lat];
@@ -143,17 +138,48 @@ export class MapBase {
     });
   }
 
+  changeMap(target: string) {
+
+
+
+    if (!this.mapImages.has(target)){
+      if (MAP_IMAGES.has(target)){
+        const img = L.imageOverlay(`${map.EOW_FILES}/maptex/${target}.png`, MAP_IMAGES.get(target)!, {
+          pane: 'base',
+        });
+        img.addTo(this.m);
+        this.mapImages.set(target, img)
+      }
+
+    }
+
+    this.mapImages.forEach(img => {
+      this.m.removeLayer(img)
+    })
+
+    if (this.mapImages.get(target))
+      this.m.addLayer(this.mapImages.get(target)!)
+
+    if (MAP_IMAGES.has(target)){
+      this.m.setMaxBounds(MAP_IMAGES.get(target)!)
+      this.m.setView(MAP_IMAGES.get(target)!.getCenter(), this.m.getBoundsZoom(MAP_IMAGES.get(target)!))
+    } else {
+      this.m.setMaxBounds(new L.LatLngBounds([[-500, -500], [500, 500]]));
+      this.m.setView([0, 0], 2)
+    }
+
+  }
+
   private initBaseMap() {
     const BASE_PANE = 'base';
     this.m.createPane(BASE_PANE).style.zIndex = '0';
-    const bounds = new L.LatLngBounds([[-36, -50], [513.4, 714.0]]);
-    this.baseImage = L.imageOverlay(`${map.EOW_FILES}/maptex/base.png`, bounds, {
-      pane: BASE_PANE,
-    });
-    this.baseImage.addTo(this.m);
+
+    this.changeMap(Settings.getInstance().mapName);
 
     this.m.createPane('front').style.zIndex = '1000';
     this.m.createPane('front2').style.zIndex = '1001';
+
+
 
     this.refGridOn = false;
     this.m.on("zoom", () => {

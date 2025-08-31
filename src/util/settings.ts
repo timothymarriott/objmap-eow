@@ -26,7 +26,6 @@ export class Settings {
 
   useActorNames!: boolean;
 
-  mapType!: string;
   mapName!: string;
 
   customSearchPresets!: Array<[string, string]>;
@@ -52,8 +51,7 @@ export class Settings {
     this.useActorNames = parse(data.useActorNames, Id, false);
     this.customSearchPresets = parse(data.customSearchPresets, Id, []);
     this.left = parse(data.left, Id, true);
-    this.mapType = parse(data.mapType, Id, 'MainField');
-    this.mapName = parse(data.mapName, Id, '');
+    this.mapName = parse(data.mapName, Id, 'Field');
     this.drawControlsShown = parse(data.drawControlsShown, Id, false);
 
     this.invokeCallbacks();
@@ -69,7 +67,6 @@ export class Settings {
       useActorNames: this.useActorNames,
       customSearchPresets: this.customSearchPresets,
       left: this.left,
-      mapType: this.mapType,
       mapName: this.mapName,
       drawControlsShown: this.drawControlsShown,
     };

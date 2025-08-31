@@ -1,4 +1,4 @@
-import { EOW_FILES, GAME_FILES } from '@/util/map';
+import { EOW_FILES } from '@/util/map';
 
 type File = { [label: string]: string };
 
@@ -17,7 +17,8 @@ export class MsgMgr {
   private metadata: any | null = null;
 
   async init() {
-    const PREFIX = `${GAME_FILES}/text/`;
+    /*
+    const PREFIX = `${EOW_FILES}/text/`;
     const fileList: string[] = await fetch(PREFIX + 'list.json').then(r => r.json());
     const fileLoadPromises = [];
     for (const path of fileList) {
@@ -30,6 +31,7 @@ export class MsgMgr {
       this.names = d;
     }));
     await Promise.all(fileLoadPromises);
+    */
   }
 
   private getFile(file: string) {
@@ -43,7 +45,7 @@ export class MsgMgr {
 
   async getAreaData(item: number) {
     if (!this.area) {
-      const res = await fetch(`${GAME_FILES}/area_data.json`);
+      const res = await fetch(`${EOW_FILES}/area_data.json`);
       this.area = await res.json();
     }
     if (this.area) {
@@ -54,7 +56,7 @@ export class MsgMgr {
 
   async getClimateData(item: number) {
     if (!this.climate) {
-      const res = await fetch(`${GAME_FILES}/climate_data.json`);
+      const res = await fetch(`${EOW_FILES}/climate_data.json`);
       this.climate = await res.json();
     }
     if (this.climate) {
@@ -65,7 +67,7 @@ export class MsgMgr {
 
   async getObjectMetaData(item: string) {
     if (!this.metadata) {
-      const res = await fetch(`${GAME_FILES}/object_meta.json`);
+      const res = await fetch(`${EOW_FILES}/object_meta.json`);
       this.metadata = await res.json();
     }
     return this.metadata[item];

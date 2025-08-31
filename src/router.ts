@@ -15,5 +15,6 @@ export default new Router({
       component: AppMap,
     },
     { path: '*', redirect: '/map' },
+
   ],
 });

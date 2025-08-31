@@ -1,8 +1,8 @@
 import { LocationMarkerData, LocationPointerMarkerData, MapMarkerData } from "@/MapMarker";
 
 
-export const GAME_FILES = process.env.VUE_APP_GAME_FILES;
 export const EOW_FILES = process.env.VUE_APP_EOW_FILES;
+
 
 export type Point = [number, number, number];
 

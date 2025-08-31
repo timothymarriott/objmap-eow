@@ -51,6 +51,12 @@ export const SEARCH_PRESETS: ReadonlyArray<SearchPresetGroup> = Object.freeze([
       {label: 'Ingredients', query: 'actor:^SmoothieIngredient_*'},
     ],
   },
+  {
+    label: 'Other',
+    presets: [
+      {label: 'All in MAP', query: 'map_name:MAP'}
+    ]
+  }
 ]);
 
 export class SearchExcludeSet {
@@ -64,7 +70,7 @@ export class SearchExcludeSet {
   ids: Set<number> = new Set();
 
   async init() {
-    this.ids = new Set(await MapMgr.getInstance().getObjids(Settings.getInstance().mapType, Settings.getInstance().mapName, this.query));
+    this.ids = new Set(await MapMgr.getInstance().getObjids(Settings.getInstance().mapName, this.query));
   }
 }
 
@@ -81,6 +87,11 @@ export class SearchResultGroup {
   }
 
   remove() {
+    for (const [i, marker] of this.markers.data.entries()) {
+      if (marker.areaMarker != null){
+        marker.areaMarker.remove()
+      }
+    }
     this.markerGroup.data.remove();
     this.markerGroup.data.clearLayers();
     this.shownMarkers = new ui.Unobservable([]);
@@ -106,7 +117,11 @@ export class SearchResultGroup {
 
       if (shouldShow)
         marker.update(this.fillColor, this.strokeColor, mode, shouldShowArea);
-
+      else {
+        if (marker.areaMarker != null){
+          marker.areaMarker.remove()
+        }
+      }
 
     }
   }
@@ -124,7 +139,7 @@ export class SearchResultGroup {
     this.markerGroup.data.addTo(map.m);
     if (!this.query)
       return;
-    const results = await MapMgr.getInstance().getObjs(Settings.getInstance().mapType, Settings.getInstance().mapName, this.query);
+    const results = await MapMgr.getInstance().getObjs(Settings.getInstance().mapName, this.query);
     this.setObjects(map, results);
   }
 

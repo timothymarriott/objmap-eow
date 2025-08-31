@@ -45,7 +45,6 @@ import AppMapPopup from '@/components/AppMapPopup';
 import draggable from 'vuedraggable';
 
 interface ObjectIdentifier {
-  mapType: string;
   mapName: string;
   hashId: number;
 }
@@ -64,7 +63,7 @@ interface MarkerComponent {
   filterLabel: string,
 }
 
-const MARKER_COMPONENTS: { [type: string]: MarkerComponent } = Object.freeze({
+export const MARKER_COMPONENTS: { [type: string]: MarkerComponent } = Object.freeze({
   'Location': {
     cl: MapMarkers.MapMarkerLocation,
     preloadPad: 0.6,
@@ -125,13 +124,19 @@ const MARKER_COMPONENTS: { [type: string]: MarkerComponent } = Object.freeze({
 });
 
 function getMarkerDetailsComponent(marker: MapMarker): string {
-  if (marker instanceof MapMarkers.MapMarkerObj || marker instanceof MapMarkers.MapMarkerSearchResult)
+  if (marker instanceof MapMarkers.MapMarkerObj || marker instanceof MapMarkers.MapMarkerSearchResult){
+    console.log("AppMapDetailsObj")
     return 'AppMapDetailsObj';
+  }
+
 
   for (const component of Object.values(MARKER_COMPONENTS)) {
-    if (marker instanceof component.cl)
+    if (marker instanceof component.cl){
       return valueOrDefault(component.detailsComponent, '');
+    }
+
   }
+  console.log("No deets")
   return '';
 }
 
@@ -265,7 +270,6 @@ export default class AppMap extends mixins(MixinUtil) {
   areaWhitelist = '';
   staticTooltip = false;
 
-  showBaseMap = true;
 
   private tempObjMarker: ui.Unobservable<MapMarker> | null = null;
 
@@ -317,13 +321,18 @@ export default class AppMap extends mixins(MixinUtil) {
     this.updateRoute();
   }
 
+  currentMap(){
+    return Settings.getInstance().mapName;
+  }
+
   initMarkers() {
     this.map.registerZoomCb(() => this.updateMarkers());
     this.updateMarkers();
   }
 
   updateMarkers() {
-    const info = MapMgr.getInstance().getInfoMainField();
+    const info = MapMgr.getInstance().getInfo();
+    console.log(info)
     for (const type of Object.keys(info.markers)) {
       if (!Settings.getInstance().shownGroups.has(type)) {
         // Group exists and needs to be removed.
@@ -844,6 +853,7 @@ export default class AppMap extends mixins(MixinUtil) {
 
   initMarkerDetails() {
     this.map.registerMarkerSelectedCb((marker: MapMarker) => {
+      console.log(marker)
       this.openMarkerDetails(getMarkerDetailsComponent(marker), marker);
     });
     this.map.m.on({ 'click': () => this.closeMarkerDetails() });
@@ -884,7 +894,7 @@ export default class AppMap extends mixins(MixinUtil) {
 
     this.map.registerZoomCb(() => {
       for (const group of this.searchGroups)
-        group.update(0, this.searchExcludedSets);
+        group.update(SearchResultUpdateMode.None, this.searchExcludedSets);
     });
   }
 
@@ -915,6 +925,11 @@ export default class AppMap extends mixins(MixinUtil) {
     })
   }
 
+  handleResetMapName() {
+    this.map.changeMap(Settings.getInstance().mapName);
+    this.updateMarkers()
+  }
+
   searchOnAdd() {
     this.searchAddGroup(this.searchGetQuery());
     this.searchQuery = '';
@@ -941,6 +956,9 @@ export default class AppMap extends mixins(MixinUtil) {
   async searchAddGroup(query: string, label?: string, enabled = true) {
     if (this.searchGroups.some(g => !!g.query && g.query == query))
       return;
+
+    query = query.replace("MAP", Settings.getInstance().mapName)
+    if (label) label = label.replace("MAP", Settings.getInstance().mapName)
 
     const group = new SearchResultGroup(query, label || query, enabled);
     await group.init(this.map);
@@ -986,7 +1004,7 @@ export default class AppMap extends mixins(MixinUtil) {
 
     const query = this.searchGetQuery();
     try {
-      this.searchResults = await MapMgr.getInstance().getObjs(this.settings!.mapType, this.settings!.mapName, query, false, this.MAX_SEARCH_RESULT_COUNT);
+      this.searchResults = await MapMgr.getInstance().getObjs(this.settings!.mapName, query, false, this.MAX_SEARCH_RESULT_COUNT);
       this.searchLastSearchFailed = false;
     } catch (e) {
       this.searchResults = [];
@@ -1050,9 +1068,9 @@ export default class AppMap extends mixins(MixinUtil) {
 
   initContextMenu() {
     this.map.m.on(SHOW_ALL_OBJS_FOR_MAP_UNIT_EVENT, (e) => {
-      let mapType = Settings.getInstance().mapType;
-      if (mapType !== 'MainField' && mapType !== 'AocField') {
-        this.searchAddGroup(`map:"${mapType}/${Settings.getInstance().mapName}"`);
+      let mapName = Settings.getInstance().mapName;
+      if (mapName !== 'Field') {
+        this.searchAddGroup(`map:"${mapName}/${Settings.getInstance().mapName}"`);
         return;
       }
 
@@ -1086,17 +1104,6 @@ export default class AppMap extends mixins(MixinUtil) {
         this.tempObjMarker.data.getMarker().remove();
     });
 
-    this.$on('AppMap:show-gen-group', async (id: ObjectIdentifier) => {
-      const group = new SearchResultGroup('', `Generation group for ${id.mapType}/${id.mapName}:${id.hashId}`);
-      await group.init(this.map);
-      const objs = await MapMgr.getInstance().getObjGenGroup(id.mapType, id.mapName, id.hashId);
-      group.setObjects(this.map, objs);
-      group.update(SearchResultUpdateMode.UpdateStyle | SearchResultUpdateMode.UpdateVisibility, this.searchExcludedSets);
-      this.searchGroups.push(group);
-    });
-    this.map.m.on('AppMap:show-gen-group', (args) => {
-      this.$emit('AppMap:show-gen-group', args);
-    });
   }
 
   initSettings() {
@@ -1130,35 +1137,8 @@ export default class AppMap extends mixins(MixinUtil) {
     this.areaMapLayersByData.data.clear();
     if (!name)
       return;
-    // Order matches that in MapTower.json
-    const mapTowerAreas = ["Hebra", "Tabantha", "Gerudo", "Wasteland",
-      "Woodland", "Central", "Great Plateau", "Dueling Peaks",
-      "Lake", "Eldin", "Akkala", "Lanayru", "Hateno",
-      "Faron", "Ridgeland"];
-    const climate_names = [
-      'HyrulePlainClimate',
-      'NorthHyrulePlainClimate',
-      'HebraFrostClimate',
-      'TabantaAridClimate',
-      'FrostClimate',
-      'GerudoDesertClimate',
-      'GerudoPlateauClimate',
-      'EldinClimateLv0',
-      'TamourPlainClimate',
-      'ZoraTemperateClimate',
-      'HateruPlainClimate',
-      'FiloneSubtropicalClimate',
-      'SouthHateruHumidTemperateClimate',
-      'EldinClimateLv1',
-      'EldinClimateLv2',
-      // sic
-      'DarkWoodsClimat',
-      'LostWoodClimate',
-      'GerudoFrostClimate',
-      'KorogForest',
-      'GerudoDesertClimateLv2'
-    ];
 
+    /*
     const areas = await MapMgr.getInstance().fetchAreaMap(name);
     const entries = Object.entries(areas);
     let i = 0;
@@ -1203,6 +1183,7 @@ export default class AppMap extends mixins(MixinUtil) {
       }
       ++i;
     }
+      */
     this.updateAreaMapVisibility();
   }
 
@@ -1218,12 +1199,6 @@ export default class AppMap extends mixins(MixinUtil) {
 
   onShownAreaMapChanged() {
     this.$nextTick(() => this.loadAreaMap(this.shownAreaMap));
-  }
-
-  onShowBaseMap() {
-    this.$nextTick(() => {
-      this.map.showBaseMap(this.showBaseMap);
-    });
   }
 
   created() {
@@ -1251,7 +1226,6 @@ export default class AppMap extends mixins(MixinUtil) {
     }
 
     if (this.$route.query.id) {
-      // format: MapType,MapName,HashId
       const [mapName, hashId] = this.$route.query.id.toString().split(',');
       MapMgr.getInstance().getObj(mapName, parseInt(hashId)).then((obj) => {
         if (obj)

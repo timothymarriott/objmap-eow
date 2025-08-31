@@ -170,7 +170,7 @@
               <b-btn size="sm" variant="link" @click="switchPane('spane-search-help')">Help</b-btn>
               <b-dropdown v-for="presetGroup in searchPresets" :key="presetGroup.label" size="sm" variant="link">
                 <template slot="button-content"><span v-html="presetGroup.label"></span></template>
-                <b-dd-item v-for="preset in presetGroup.presets" :key="preset.label" @click="searchAddGroup(preset.query, preset.label)">{{preset.label}}</b-dd-item>
+                <b-dd-item v-for="preset in presetGroup.presets" :key="preset.label" @click="searchAddGroup(preset.query, preset.label)">{{preset.label.replace("MAP", currentMap())}}</b-dd-item>
               </b-dropdown>
               <b-dropdown size="sm" variant="link" text="Custom" v-if="settings && settings.customSearchPresets.length">
                 <b-dd-item v-for="preset in settings.customSearchPresets" :key="preset[0]" @click="searchAddGroup(preset[1], preset[0])">{{preset[0]}}</b-dd-item>
@@ -178,7 +178,7 @@
             </div>
           </div>
 
-          <p class="text-center" v-show="settings.mapType !== 'MainField'">Searching map: {{settings.mapType}} {{settings.mapName}}</p>
+          <p class="text-center" v-show="settings.mapName !== 'Field'">Searching map: {{settings.mapName}}</p>
 
           <section class="search-groups" v-show="searchGroups.length || searchExcludedSets.length">
             <div class="search-group d-flex align-items-center" v-for="(group, idx) in searchGroups" :key="'searchgroup' + idx">
@@ -219,9 +219,6 @@
         <div class="row">
           <AppMapFilterMainButton v-for="(v, type) in markerComponents" :key="type" :type="type" :label="v.filterLabel" :icon="v.filterIcon" @toggle="updateMarkers" />
         </div>
-        <hr>
-
-        <b-checkbox switch v-model="showBaseMap" @change="onShowBaseMap">Show base map</b-checkbox>
         <hr/>
       </div>
 
@@ -262,20 +259,14 @@
 
       <div class="leaflet-sidebar-pane" id="spane-tools">
         <h1 class="leaflet-sidebar-header">Tools</h1>
-        <b-button size="sm" variant="secondary" block @click="closeSidebar(); $refs.modalGoto.show()">Go to coordinates...</b-button>
-        <hr>
-        <p><b-button size="sm" variant="secondary" block @click="closeSidebar(); showGreatPlateauBarrier()" v-b-tooltip.hover title="Right click on the Plateau to hide the barrier.">Show Great Plateau barrier</b-button></p>
-        <p>The Great Plateau barrier prevents Link from leaving the Great Plateau before he has acquired the paraglider. For more information, read the <a href="https://zeldamods.org/wiki/The_Great_Plateau_barrier">article</a>.</p>
-
         <hr>
         <h4 class="subsection-heading">About this map</h4>
-        <p>This object map is an <a href="https://github.com/zeldamods/objmap">open source project</a>. Contributions are welcome.</p>
-        <p>For technical documentation about <i>Breath of the Wild</i> and mechanic breakdowns, refer to the <a href="https://zeldamods.org/">ZeldaMods wiki</a>.</p>
+        <p>This object map is a fork of the <a href="https://github.com/zeldamods/objmap">botw object map</a> and is open source on <a href="https://github.com/timothymarriott/objmap-eow">my github</a>.</p>
       </div>
 
       <div class="leaflet-sidebar-pane" id="spane-settings">
         <h1 class="leaflet-sidebar-header">Settings</h1>
-        <AppMapSettings/>
+        <AppMapSettings @reset-map-name="handleResetMapName"/>
       </div>
 
       <div class="leaflet-sidebar-pane" id="spane-details">

@@ -3,9 +3,7 @@
     <hr>
 
     <h4 class="subsection-heading">Map</h4>
-    <b-form-select v-model="s.mapType" class="mb-2" size="sm" :options="optionsMapType" @input="resetMapName"></b-form-select>
-    <b-form-select v-model="s.mapName" class="mb-2" size="sm" :options="optionsMapNameForMapType[s.mapType]"></b-form-select>
-    This setting only affects search. Objects will be displayed using the main Hyrule map.
+    <b-form-select v-model="s.mapName" class="mb-2" size="sm" :options="optionsMapName" @input="resetMapName"></b-form-select>
     <hr>
 
     <h4 class="subsection-heading">Object Color Mode</h4>

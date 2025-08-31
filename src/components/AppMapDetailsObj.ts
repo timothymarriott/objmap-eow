@@ -49,7 +49,9 @@ function numOrArrayToArray(x: number | [number, number, number] | undefined): [n
 }
 
 export function isAreaObject(obj: ObjectMinData) {
-  const areaObjectNames: string[] = [];
+  const areaObjectNames: string[] = [
+    "MapVastAbyss"
+  ];
   return areaObjectNames.includes(obj.name) || obj.name.startsWith("AirWall") || obj.name.startsWith("Sensor");
 }
 
@@ -256,59 +258,5 @@ export default class AppMapDetailsObj extends AppMapDetailsBase<MapMarkerObj | M
     return (out) ? out : null;
   }
 
-  getNextFlowerInKorokFlowerTrail(group: any[], flower: any): any {
-    let or = this.findItemByHash(group, flower.data.LinksToObj, "LinkTagOr");
-    if (!or) {
-      return null;
-    }
-    let lag = this.findItemByHash(group, or.data.LinksToObj, "SwitchTimeLag");
-    if (!lag) {
-      return null;
-    }
-    let and = this.findItemByHash(group, lag.data.LinksToObj, "LinkTagAnd");
-    if (!and) {
-      return null;
-    }
-    let plant = this.findItemByHash(group, and.data.LinksToObj, "Obj_Plant_Korok_A_01");
-    return plant;
-  }
-
-  isLastFlowerInKorokFlowerTrail(flower: any): boolean {
-    return flower.data['!Parameters'].IsLastKorokFlower;
-  }
-
-  getFlowersInKorokFlowerTrail(group: any[], flower: any): any[] {
-    let flowers = [flower];
-    while (flower && !this.isLastFlowerInKorokFlowerTrail(flower)) {
-      let f = this.getNextFlowerInKorokFlowerTrail(group, flower);
-      flowers.push(f);
-      flower = f;
-    }
-    return flowers;
-  }
-
-  getKorokIcon(obj_name: string, style: string = "", text: string = ""): L.DivIcon {
-    let html = "";
-    let className = "";
-    if (obj_name == "FldObj_KorokStartingBlock_A_01") {
-      html = '<div class="stump"><i class="fa fa-leaf big-leaf"></i></div>';
-    } else if (obj_name == "FldObj_KorokGoal_A_01") {
-      html = svg.raceGoal;
-    } else if (obj_name == "Obj_Plant_Korok_A_01") {
-      html = `<div><i class="fa fa-leaf korokicon" style="${style}"></i>${text}</div>`;
-    } else if (rock_target.includes(obj_name)) {
-      html = '<i class="fa fa-bullseye" style="font-size: 1.6em; color: rgba(255,255,255,0.6);"></i>';
-    } else if (rock_source.includes(obj_name)) {
-      html = '<i class="fa fa-cloud" style="font-size: 1.6em; color: #bbb; text-shadow: black 0px 0px 3px; "></i>';
-    }
-    return L.divIcon({
-      html: html, className: className, iconSize: [30, 30], iconAnchor: [15, 15],
-    });
-  }
-
-  getKorokMarkerWithIcon(obj: any, style: string = "", text: string = "") {
-    let icon = this.getKorokIcon(obj.data.UnitConfigName, style, text);
-    return L.marker([obj.data.Translate[2], obj.data.Translate[0]], { icon: icon });
-  }
 
 }
